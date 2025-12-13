@@ -115,12 +115,19 @@
         select {
             appearance: none;
             -webkit-appearance: none;
+            /* default show placeholder-like color until a real option is selected */
+            color: #999;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23004ba0'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: right 15px center;
             background-size: 20px;
             cursor: pointer;
         }
+
+        /* When a valid option is selected, show normal text color */
+        select:focus, select:valid { color: #333; }
+        /* Ensure option text is readable */
+        select option { color: #333; }
 
         /* --- SUBMIT BUTTON --- */
         .btn-submit {
