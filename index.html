@@ -13,53 +13,67 @@
         /* --- GLOBAL --- */
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #0b1e33;
-            overflow-x: hidden; /* Mencegah geser kanan-kiri */
+            margin: 0;
+            padding: 0;
+            /* Warna cadangan jika gambar gagal memuat (Biru Langit Bolekaka) */
+            background-color: #0099ff; 
         }
 
-        /* --- BACKGROUND SETUP --- */
-        .main-container {
-            min-height: 100vh;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            /* Default Mobile Background */
-            background: url('mobile.jpg') no-repeat top center; 
-            background-size: 100% auto; /* Lebar 100%, tinggi otomatis sesuai rasio */
-            background-attachment: fixed; /* Background diam saat scroll */
-            padding: 15px;
+        /* --- BACKGROUND SETUP (FIXED) --- */
+        .background-wrapper {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background-color: #0099ff;
+            
+            /* MOBILE BACKGROUND (Default) */
+            /* Pastikan file bernama: mobile.jpg */
+            background-image: url('mobile.jpg'); 
+            background-position: center top;
+            background-size: 100% auto; /* Lebar 100%, Tinggi menyesuaikan */
+            background-repeat: no-repeat;
         }
 
         /* DESKTOP BACKGROUND (> 992px) */
         @media (min-width: 992px) {
-            .main-container {
-                background: url('dekstop.jpg') no-repeat center center;
-                background-size: cover;
-                align-items: center; /* Tengah vertikal kalau di desktop */
+            .background-wrapper {
+                /* Pastikan file bernama: desktop.jpg */
+                background-image: url('desktop.jpg');
+                background-position: center center;
+                background-size: cover; /* Full layar */
             }
         }
 
-        /* --- CARD STYLE (VERSI MINI / COMPACT) --- */
+        /* --- CONTAINER UTAMA --- */
+        .main-content {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            /* Scroll tetap jalan di atas background fixed */
+            position: relative; 
+            z-index: 1; 
+        }
+
+        /* --- CARD STYLE (VERSI MINI) --- */
         .custom-card {
             width: 100%;
-            max-width: 330px; /* Lebar maksimal diperkecil */
+            max-width: 320px; /* Sangat ramping */
             background: rgba(0, 86, 179, 0.9); /* Biru Transparan */
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
             overflow: hidden;
             position: relative;
             
-            /* PENTING: Jarak dari atas supaya tidak menutupi tulisan background */
-            margin-top: 130px; 
-            margin-bottom: 50px; /* Jarak bawah agar tidak nempel logo */
+            /* JARAK ATAS (PENTING AGAR TIDAK MENUTUPI TULISAN) */
+            margin-top: 140px; 
+            margin-bottom: 60px;
         }
         
-        /* Jika di layar Desktop, margin reset jadi tengah */
         @media (min-width: 992px) {
-             .custom-card {
-                margin-top: 0;
-                margin-bottom: 0;
-             }
+             .main-content { align-items: center; }
+             .custom-card { margin-top: 0; margin-bottom: 0; }
         }
 
         /* Hiasan Garis Atas */
@@ -70,22 +84,22 @@
 
         .card-header-custom {
             background-color: #004ba0;
-            padding: 8px; /* Header tipis */
+            padding: 10px;
             text-align: center;
         }
 
         .card-header-custom h5 {
             color: #f7a01d; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.5px; margin-bottom: 0; font-size: 13px; /* Font judul kecil */
+            letter-spacing: 0.5px; margin-bottom: 0; font-size: 13px;
         }
 
         /* --- FORM INPUT MINI --- */
         .input-box {
             position: relative;
-            margin-bottom: 6px; /* Jarak antar input sangat rapat */
+            margin-bottom: 7px; /* Rapat */
             background: #fff;
-            border-radius: 5px;
-            height: 35px; /* TINGGI INPUT HANYA 35PX */
+            border-radius: 6px;
+            height: 36px; /* Pendek */
         }
 
         .input-box i {
@@ -95,22 +109,20 @@
 
         .input-box input, .input-box select {
             width: 100%; height: 100%; background: transparent;
-            border: 1px solid transparent; border-radius: 5px; outline: none;
+            border: 1px solid transparent; border-radius: 6px; outline: none;
             padding: 0 10px 0 35px;
-            font-size: 11px; /* Font isi form kecil */
-            color: #333; font-weight: 500; z-index: 2; position: relative;
+            font-size: 11px; color: #333; font-weight: 500; z-index: 2; position: relative;
         }
 
-        /* Label / Placeholder */
         .input-box label {
             position: absolute; left: 35px; top: 50%; transform: translateY(-50%);
             color: #888; font-size: 11px; pointer-events: none; transition: 0.3s; z-index: 0;
         }
 
-        /* Efek Floating Label */
+        /* Floating Label Logic */
         .input-box input:focus ~ label, .input-box input:valid ~ label,
         .input-box select:focus ~ label, .input-box select:valid ~ label {
-            display: none; /* Label hilang saat diketik agar tidak sempit */
+            display: none;
         }
         
         .input-box input:focus, .input-box select:focus {
@@ -125,11 +137,11 @@
 
         /* --- BUTTON --- */
         .btn-submit-custom {
-            width: 100%; height: 38px;
-            background: #f7a01d; color: #0b1e33; border: none; border-radius: 5px;
-            font-size: 12px; font-weight: 700; cursor: pointer;
-            box-shadow: 0 2px 5px rgba(247, 160, 29, 0.3);
-            display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;
+            width: 100%; height: 40px;
+            background: #f7a01d; color: #0b1e33; border: none; border-radius: 6px;
+            font-size: 13px; font-weight: 700; cursor: pointer;
+            box-shadow: 0 3px 8px rgba(247, 160, 29, 0.3);
+            display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 8px;
         }
         .btn-submit-custom:hover { background: #e39016; }
 
@@ -142,7 +154,7 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         #message {
-            margin-top: 5px; padding: 5px; border-radius: 4px; font-size: 10px;
+            margin-top: 5px; padding: 8px; border-radius: 4px; font-size: 10px;
             text-align: center; display: none;
         }
         .success { background: #e6fffa; color: #006d5b; }
@@ -151,14 +163,16 @@
 </head>
 <body>
 
-    <div class="main-container">
-        
+    <div class="background-wrapper"></div>
+
+    <div class="main-content">
         <div class="custom-card">
             <div class="card-header-custom">
                 <h5>PESERTA UNDIAN</h5>
             </div>
             
-            <div class="p-3"> <form id="voucherForm" autocomplete="off">
+            <div class="p-3">
+                <form id="voucherForm" autocomplete="off">
                     
                     <div class="input-box">
                         <i class="fas fa-user"></i>
@@ -219,13 +233,12 @@
                 </form>
             </div>
         </div>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // --- URL GOOGLE SCRIPT ---
+        // --- SCRIPT URL ANDA ---
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwhgQUNPqCEDCUdFjn0wGryeZEBnNPEsqn9UaJtpYwKkczWUeKiDJ3lkLtdH2XcXioE/exec'; 
 
         const form = document.forms['voucherForm'];
@@ -285,6 +298,3 @@
     </script>
 </body>
 </html>
-
-
-
