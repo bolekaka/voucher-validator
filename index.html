@@ -3,242 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Undian Bolekaka</title>
+    <title>Undian Berhadiah Bolekaka</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- GLOBAL --- */
+        /* --- CUSTOM STYLE DI ATAS BOOTSTRAP --- */
         body {
             font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            /* Warna cadangan jika gambar gagal memuat (Biru Langit Bolekaka) */
-            background-color: #0099ff; 
+            -webkit-tap-highlight-color: transparent;
+            background-color: #0b1e33; /* Fallback color */
         }
 
-        /* --- BACKGROUND SETUP (FIXED) --- */
-        .background-wrapper {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background-color: #0099ff;
-            
-            /* MOBILE BACKGROUND (Default) */
-            /* Pastikan file bernama: mobile.jpg */
-            background-image: url('mobile.jpg'); 
-            background-position: center top;
-            background-size: 100% auto; /* Lebar 100%, Tinggi menyesuaikan */
-            background-repeat: no-repeat;
+        /* --- PENGATURAN BACKGROUND RESPONSIF --- */
+        .main-container {
+            min-height: 100vh;
+            /* Default Mobile Background (Foto Pertama / image_0.png) */
+            /* Pastikan file 'bg-mobile.png' ada di folder yang sama */
+            background: url('mobile.jpg') no-repeat center top;
+            background-size: cover;
+            padding-top: 80px; /* Ruang agar tidak menutupi logo atas di mobile */
+            padding-bottom: 20px;
         }
 
-        /* DESKTOP BACKGROUND (> 992px) */
+        /* Media Query untuk Desktop (Layar >= 992px) */
         @media (min-width: 992px) {
-            .background-wrapper {
-                /* Pastikan file bernama: desktop.jpg */
-                background-image: url('desktop.jpg');
-                background-position: center center;
-                background-size: cover; /* Full layar */
+            .main-container {
+                /* Desktop Background (Foto Ketiga / image_2.png) */
+                /* Pastikan file 'bg-desktop.png' ada di folder yang sama */
+                background: url('desktop.jpg') no-repeat center center;
+                background-size: cover;
+                padding-top: 0; /* Reset padding di desktop */
             }
         }
 
-        /* --- CONTAINER UTAMA --- */
-        .main-content {
-            min-height: 100vh;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            padding: 15px;
-            /* Scroll tetap jalan di atas background fixed */
-            position: relative; 
-            z-index: 1; 
-        }
-
-        /* --- CARD STYLE (VERSI MINI) --- */
+        /* --- CARD STYLE --- */
         .custom-card {
-            width: 100%;
-            max-width: 320px; /* Sangat ramping */
-            background: rgba(0, 86, 179, 0.9); /* Biru Transparan */
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            background: rgba(0, 86, 179, 0.95); /* Biru sedikit transparan */
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
             overflow: hidden;
             position: relative;
-            
-            /* JARAK ATAS (PENTING AGAR TIDAK MENUTUPI TULISAN) */
-            margin-top: 140px; 
-            margin-bottom: 60px;
-        }
-        
-        @media (min-width: 992px) {
-             .main-content { align-items: center; }
-             .custom-card { margin-top: 0; margin-bottom: 0; }
+            border: none; /* Hapus border default bootstrap */
         }
 
-        /* Hiasan Garis Atas */
+        /* Garis hiasan atas */
         .custom-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, #f7a01d, #ffc107); z-index: 10;
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #f7a01d, #ffc107);
+            z-index: 10;
         }
 
         .card-header-custom {
             background-color: #004ba0;
-            padding: 10px;
+            padding: 25px 20px 15px;
             text-align: center;
         }
 
-        .card-header-custom h5 {
-            color: #f7a01d; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.5px; margin-bottom: 0; font-size: 13px;
+        .card-header-custom h4 {
+            color: #f7a01d;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .card-header-custom p {
+            color: #a0cfff;
+            font-size: 13px;
+            margin-bottom: 0;
         }
 
-        /* --- FORM INPUT MINI --- */
+        /* --- MODERN INPUT (CUSTOM FLOATING LABEL) --- */
+        /* Kita tetap pakai style custom ini karena lebih bagus dari bawaan bootstrap */
         .input-box {
             position: relative;
-            margin-bottom: 7px; /* Rapat */
+            margin-bottom: 25px;
             background: #fff;
-            border-radius: 6px;
-            height: 36px; /* Pendek */
+            border-radius: 8px;
+            height: 55px;
         }
 
         .input-box i {
-            position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
-            color: #004ba0; font-size: 13px; z-index: 1;
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #004ba0;
+            font-size: 18px;
+            z-index: 1;
         }
 
-        .input-box input, .input-box select {
-            width: 100%; height: 100%; background: transparent;
-            border: 1px solid transparent; border-radius: 6px; outline: none;
-            padding: 0 10px 0 35px;
-            font-size: 11px; color: #333; font-weight: 500; z-index: 2; position: relative;
+        .input-box input, 
+        .input-box select {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            outline: none;
+            padding: 0 15px 0 45px;
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+            transition: 0.3s;
+            z-index: 2;
+            position: relative;
         }
 
         .input-box label {
-            position: absolute; left: 35px; top: 50%; transform: translateY(-50%);
-            color: #888; font-size: 11px; pointer-events: none; transition: 0.3s; z-index: 0;
+            position: absolute;
+            left: 45px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 14px;
+            pointer-events: none;
+            transition: 0.3s;
+            z-index: 0;
         }
 
-        /* Floating Label Logic */
-        .input-box input:focus ~ label, .input-box input:valid ~ label,
-        .input-box select:focus ~ label, .input-box select:valid ~ label {
-            display: none;
-        }
-        
-        .input-box input:focus, .input-box select:focus {
+        /* Efek saat fokus */
+        .input-box input:focus, .input-box input:valid,
+        .input-box select:focus, .input-box select:valid {
             border-color: #f7a01d;
         }
 
+        .input-box input:focus ~ label, .input-box input:valid ~ label,
+        .input-box select:focus ~ label, .input-box select:valid ~ label {
+            top: -10px; left: 10px;
+            font-size: 12px; color: #fff; background: #f7a01d;
+            padding: 2px 8px; border-radius: 4px; font-weight: 600;
+            z-index: 3;
+        }
+
+        select option { color: #333; }
         select {
-            appearance: none; -webkit-appearance: none;
-            background: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23004ba0'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") no-repeat right 8px center;
-            background-size: 12px;
+            appearance: none;
+            -webkit-appearance: none;
+            background: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23004ba0'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") no-repeat right 15px center;
+            background-size: 18px;
         }
 
         /* --- BUTTON --- */
         .btn-submit-custom {
-            width: 100%; height: 40px;
-            background: #f7a01d; color: #0b1e33; border: none; border-radius: 6px;
-            font-size: 13px; font-weight: 700; cursor: pointer;
-            box-shadow: 0 3px 8px rgba(247, 160, 29, 0.3);
-            display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 8px;
+            width: 100%;
+            height: 50px;
+            background: #f7a01d;
+            color: #0b1e33;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(247, 160, 29, 0.4);
+            transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
         }
         .btn-submit-custom:hover { background: #e39016; }
+        .btn-submit-custom:active { transform: scale(0.98); }
+        .btn-submit-custom:disabled { background: #ccc; color: #666; box-shadow: none; }
 
-        /* Spinner & Alert */
+        /* Spinner */
         .spinner {
-            width: 14px; height: 14px;
-            border: 2px solid rgba(0,0,0,0.1); border-top: 2px solid #0b1e33;
+            width: 20px; height: 20px;
+            border: 3px solid rgba(0,0,0,0.1); border-top: 3px solid #0b1e33;
             border-radius: 50%; animation: spin 0.8s linear infinite; display: none;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+        /* --- ALERT --- */
         #message {
-            margin-top: 5px; padding: 8px; border-radius: 4px; font-size: 10px;
-            text-align: center; display: none;
+            margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 13px;
+            text-align: center; display: none; line-height: 1.5;
         }
-        .success { background: #e6fffa; color: #006d5b; }
-        .error { background: #fff5f5; color: #c53030; }
+        .success { background: #e6fffa; color: #006d5b; border-left: 5px solid #006d5b; }
+        .error { background: #fff5f5; color: #c53030; border-left: 5px solid #c53030; }
     </style>
 </head>
 <body>
 
-    <div class="background-wrapper"></div>
-
-    <div class="main-content">
-        <div class="custom-card">
-            <div class="card-header-custom">
-                <h5>PESERTA UNDIAN</h5>
-            </div>
+    <div class="container-fluid main-container d-flex align-items-center justify-content-center">
+        
+        <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
             
-            <div class="p-3">
-                <form id="voucherForm" autocomplete="off">
+            <div class="card custom-card">
+                <div class="card-header-custom">
+                    <h4>Peserta Undian</h4>
+                    <p>Lengkapi data untuk kesempatan menang!</p>
+                </div>
+                <div class="card-body p-4">
                     
-                    <div class="input-box">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="nama" name="nama" required autocomplete="off">
-                        <label>Nama Lengkap</label>
-                    </div>
+                    <form id="voucherForm" autocomplete="off">
+                        
+                        <div class="input-box">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="nama" name="nama" required autocomplete="off">
+                            <label>Nama Lengkap</label>
+                        </div>
 
-                    <div class="input-box">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <input type="text" id="domisili" name="domisili" required autocomplete="off">
-                        <label>Domisili / Kota</label>
-                    </div>
+                        <div class="input-box">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" id="domisili" name="domisili" required autocomplete="off">
+                            <label>Domisili</label>
+                        </div>
 
-                    <div class="input-box">
-                        <i class="fas fa-phone"></i>
-                        <input type="number" id="telepon" name="telepon" required autocomplete="off">
-                        <label>No. Telepon / WA</label>
-                    </div>
+                        <div class="input-box">
+                            <i class="fas fa-phone"></i>
+                            <input type="number" id="telepon" name="telepon" required autocomplete="off">
+                            <label>No. Telepon / WA</label>
+                        </div>
 
-                    <div class="input-box">
-                        <i class="fas fa-store"></i>
-                        <select id="outlet" name="outlet" required>
-                            <option value="" disabled selected></option>
-                            <option value="Bolekaka Jatiwaringin">Bolekaka Jatiwaringin</option>
-                            <option value="Bolekaka Galaxy">Bolekaka Galaxy</option>
-                            <option value="Bolekaka Bintara">Bolekaka Bintara</option>
-                            <option value="Bolekaka Pondok Ungu">Bolekaka Pondok Ungu</option>
-                        </select>
-                        <label>Pilih Outlet</label>
-                    </div>
+                        <div class="input-box">
+                            <i class="fas fa-store"></i>
+                            <select id="outlet" name="outlet" required>
+                                <option value="" disabled selected></option>
+                                <option value="Bolekaka Jatiwaringin">Bolekaka Jatiwaringin</option>
+                                <option value="Bolekaka Galaxy">Bolekaka Galaxy</option>
+                                <option value="Bolekaka Bintara">Bolekaka Bintara</option>
+                                <option value="Bolekaka Pondok Ungu">Bolekaka Pondok Ungu</option>
+                            </select>
+                            <label>Pilih Outlet</label>
+                        </div>
 
-                    <div class="input-box">
-                        <i class="fas fa-shopping-bag"></i>
-                        <select id="platform" name="platform" required>
-                            <option value="" disabled selected></option>
-                            <option value="Visit Toko">Visit Toko</option>
-                            <option value="Admin WhatsApp">Admin WhatsApp</option>
-                            <option value="Shopee">Shopee</option>
-                            <option value="Tokopedia">Tokopedia</option>
-                            <option value="Tiktok">Tiktok</option>
-                        </select>
-                        <label>Platform Beli</label>
-                    </div>
+                        <div class="input-box">
+                            <i class="fas fa-shopping-bag"></i>
+                            <select id="platform" name="platform" required>
+                                <option value="" disabled selected></option>
+                                <option value="Visit Toko">Visit Toko</option>
+                                <option value="Admin WhatsApp">Admin WhatsApp</option>
+                                <option value="Shopee">Shopee</option>
+                                <option value="Tokopedia">Tokopedia</option>
+                                <option value="Tiktok">Tiktok</option>
+                            </select>
+                            <label>Platform Beli</label>
+                        </div>
 
-                    <div class="input-box mt-2 mb-2" style="border: 1px dashed #f7a01d;">
-                        <i class="fas fa-ticket-alt" style="color: #f7a01d;"></i>
-                        <input type="text" id="kode_voucher" name="kode_voucher" required autocomplete="off" style="font-weight: bold; letter-spacing: 0.5px; color: #004ba0;">
-                        <label style="color: #f7a01d; background: #fff; padding: 0 4px;">KODE VOUCHER</label>
-                    </div>
+                        <div class="input-box mt-4 mb-4" style="border: 2px dashed #f7a01d;">
+                            <i class="fas fa-ticket-alt" style="color: #f7a01d;"></i>
+                            <input type="text" id="kode_voucher" name="kode_voucher" required autocomplete="off" style="font-weight: bold; letter-spacing: 1px; color: #004ba0;">
+                            <label style="color: #f7a01d; background: #fff; padding: 0 5px;">KODE VOUCHER</label>
+                        </div>
 
-                    <button type="submit" class="btn-submit-custom" id="submitBtn">
-                        <div class="spinner"></div>
-                        <span class="btn-text">KIRIM SEKARANG</span>
-                    </button>
+                        <button type="submit" class="btn btn-submit-custom" id="submitBtn">
+                            <div class="spinner"></div>
+                            <span class="btn-text">KIRIM SEKARANG</span>
+                        </button>
 
-                    <div id="message"></div>
+                        <div id="message"></div>
 
-                </form>
+                    </form>
+                </div>
             </div>
+
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // --- SCRIPT URL ANDA ---
+        // --- JANGAN LUPA GANTI URL DI SINI ---
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwhgQUNPqCEDCUdFjn0wGryeZEBnNPEsqn9UaJtpYwKkczWUeKiDJ3lkLtdH2XcXioE/exec'; 
 
         const form = document.forms['voucherForm'];
@@ -251,7 +280,7 @@
             e.preventDefault();
             
             btn.disabled = true;
-            btnText.innerHTML = '...';
+            btnText.innerHTML = 'Memproses...';
             spinner.style.display = 'block';
             msgDiv.style.display = 'none';
 
@@ -277,17 +306,17 @@
 
                 if(result.result === 'success') {
                     form.reset();
-                    msgDiv.className = 'success';
+                    msgDiv.className = 'success mb-3';
                     msgDiv.innerHTML = '<b>BERHASIL!</b> <br>' + result.message;
                 } else {
-                    msgDiv.className = 'error';
+                    msgDiv.className = 'error mb-3';
                     msgDiv.innerHTML = '<b>GAGAL!</b> <br>' + result.message;
                 }
                 msgDiv.style.display = 'block';
 
             } catch (error) {
-                msgDiv.className = 'error';
-                msgDiv.innerHTML = 'Koneksi Gagal!';
+                msgDiv.className = 'error mb-3';
+                msgDiv.innerHTML = 'Gagal terhubung ke server. Cek koneksi internet.';
                 msgDiv.style.display = 'block';
             } finally {
                 btn.disabled = false;
@@ -296,5 +325,6 @@
             }
         });
     </script>
+
 </body>
 </html>
