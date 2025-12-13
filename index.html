@@ -3,303 +3,300 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Undian Berhadiah</title>
+    <title>Form Peserta Undian</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- RESET --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        /* --- RESET & BASIC SETUP --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
-            background: linear-gradient(135deg, #051322 0%, #0b1e33 100%);
+            background-color: #0b1e33; /* Warna Background Gelap */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 15px;
-            color: #fff;
+            padding: 20px;
         }
 
-        /* --- CARD --- */
+        /* --- CARD CONTAINER --- */
         .card {
             width: 100%;
-            max-width: 400px;
-            background: #0056b3;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 420px; /* Sedikit lebih lebar agar lega */
+            background-color: transparent;
+            border-radius: 12px;
             overflow: hidden;
-            position: relative;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            animation: fadeIn 0.8s ease-in-out;
         }
 
-        /* Garis hiasan atas */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, #f7a01d, #ffc107);
-        }
-
+        /* --- HEADER --- */
         .card-header {
-            background-color: #004ba0;
-            padding: 25px 20px 10px;
+            background-color: #004ba0; /* Warna Biru Header */
+            color: #f7a01d; /* Warna Orange Teks */
             text-align: center;
+            padding: 20px 15px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
         }
 
-        .card-header h2 {
-            color: #f7a01d;
-            font-size: 22px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-        
-        .card-header p {
-            color: #a0cfff;
-            font-size: 12px;
-        }
-
+        /* --- BODY FORM --- */
         .card-body {
+            background-color: #0056b3; /* Warna Biru Form */
             padding: 25px;
         }
 
-        /* --- MODERN INPUT (FLOATING LABEL) --- */
-        .input-box {
+        /* --- INPUT GROUP (ICON + INPUT) --- */
+        .input-group {
             position: relative;
-            margin-bottom: 25px;
-            background: #fff;
-            border-radius: 8px;
-            height: 55px; /* Tinggi fix agar rapi */
+            margin-bottom: 15px;
         }
 
-        /* Ikon di sebelah kiri */
-        .input-box i {
+        .input-group i {
             position: absolute;
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
             color: #004ba0;
-            font-size: 18px;
-            z-index: 1;
+            font-size: 16px;
+            pointer-events: none; /* Supaya ikon tembus klik */
         }
 
-        .input-box input, 
-        .input-box select {
+        input, select {
             width: 100%;
-            height: 100%;
-            background: transparent;
+            padding: 14px 15px 14px 45px; /* Padding kiri besar untuk ikon */
             border: 2px solid transparent;
             border-radius: 8px;
-            outline: none;
-            padding: 0 15px 0 45px; /* Spasi untuk ikon */
-            font-size: 15px;
-            color: #333;
-            font-weight: 500;
-            transition: 0.3s;
-            z-index: 2;
-            position: relative;
-        }
-
-        /* Label mengambang */
-        .input-box label {
-            position: absolute;
-            left: 45px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #888;
             font-size: 14px;
-            pointer-events: none;
-            transition: 0.3s;
-            z-index: 0;
+            color: #333;
+            background-color: #fff;
+            outline: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
 
-        /* Efek saat fokus / ada isi */
-        .input-box input:focus,
-        .input-box input:valid,
-        .input-box select:focus,
-        .input-box select:valid {
-            border-color: #f7a01d;
+        /* Efek saat diklik (Focus) */
+        input:focus, select:focus {
+            border-color: #f7a01d; /* Border jadi orange saat ngetik */
+            box-shadow: 0 0 8px rgba(247, 160, 29, 0.3);
         }
 
-        .input-box input:focus ~ label,
-        .input-box input:valid ~ label,
-        .input-box select:focus ~ label,
-        .input-box select:valid ~ label {
-            top: -10px;
-            left: 10px;
-            font-size: 12px;
-            color: #fff;
-            background: #f7a01d;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 600;
+        ::placeholder {
+            color: #999;
+            font-weight: 400;
         }
 
-        /* Khusus Select agar label naik jika sudah dipilih */
-        select option { color: #333; }
-        
-        /* Dropdown arrow custom */
+        /* Dropdown Arrow Custom */
         select {
             appearance: none;
             -webkit-appearance: none;
-            background: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23004ba0'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") no-repeat right 15px center;
-            background-size: 18px;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23004ba0'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 20px;
+            cursor: pointer;
         }
 
-        /* --- BUTTON --- */
+        /* --- SUBMIT BUTTON --- */
         .btn-submit {
             width: 100%;
-            height: 50px;
-            background: #f7a01d;
-            color: #0b1e33;
+            padding: 14px;
+            background-color: #fff;
+            color: #0056b3;
+            font-weight: 700;
+            font-size: 16px;
             border: none;
             border-radius: 8px;
-            font-size: 16px;
-            font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(247, 160, 29, 0.4);
-            transition: 0.3s;
+            transition: transform 0.2s, box-shadow 0.2s;
             margin-top: 10px;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             gap: 10px;
         }
 
-        .btn-submit:active { transform: scale(0.98); }
-        .btn-submit:disabled { background: #ccc; color: #666; box-shadow: none; }
-
-        /* Spinner */
-        .spinner {
-            width: 20px; height: 20px;
-            border: 3px solid rgba(0,0,0,0.1);
-            border-top: 3px solid #0b1e33;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            display: none;
+        .btn-submit:active {
+            transform: scale(0.98);
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* --- ALERT --- */
+        .btn-submit:disabled {
+            background-color: #e0e0e0;
+            color: #888;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 3px solid #ccc;
+            border-top: 3px solid #0056b3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none; /* Sembunyikan default */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- ALERT MESSAGES --- */
         #message {
             margin-top: 20px;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 13px;
+            padding: 12px;
+            border-radius: 6px;
             text-align: center;
+            font-size: 14px;
+            font-weight: 500;
             display: none;
-            line-height: 1.5;
+            animation: slideDown 0.4s ease-out;
         }
-        .success { background: #e6fffa; color: #006d5b; border-left: 5px solid #006d5b; }
-        .error { background: #fff5f5; color: #c53030; border-left: 5px solid #c53030; }
 
+        .msg-success {
+            background-color: rgba(144, 255, 144, 0.2);
+            border: 1px solid #90ff90;
+            color: #daffda;
+        }
+
+        .msg-error {
+            background-color: rgba(255, 144, 144, 0.2);
+            border: 1px solid #ff9090;
+            color: #ffcccc;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Fixes */
+        @media (max-width: 480px) {
+            .card-header { font-size: 1.1rem; }
+            input, select, .btn-submit { font-size: 13px; }
+        }
     </style>
 </head>
 <body>
 
     <div class="card">
         <div class="card-header">
-            <h2>Peserta Undian</h2>
-            <p>Silakan lengkapi data & masukkan voucher</p>
+            FORM PESERTA UNDIAN
         </div>
         <div class="card-body">
-            
             <form id="voucherForm" autocomplete="off">
                 
-                <div class="input-box">
+                <div class="input-group">
                     <i class="fas fa-user"></i>
-                    <input type="text" id="nama" name="nama" required autocomplete="off">
-                    <label>Nama Lengkap</label>
+                    <input type="text" id="nama" name="nama" placeholder="Nama Lengkap" required autocomplete="off">
                 </div>
 
-                <div class="input-box">
+                <div class="input-group">
                     <i class="fas fa-map-marker-alt"></i>
-                    <input type="text" id="domisili" name="domisili" required autocomplete="off">
-                    <label>Domisili</label>
+                    <input type="text" id="domisili" name="domisili" placeholder="Domisili / Kota" required autocomplete="off">
                 </div>
 
-                <div class="input-box">
+                <div class="input-group">
                     <i class="fas fa-phone"></i>
-                    <input type="number" id="telepon" name="telepon" required autocomplete="off">
-                    <label>No. Telepon / WA</label>
+                    <input type="tel" id="telepon" name="telepon" placeholder="No. Telepon / WhatsApp" required autocomplete="off">
                 </div>
 
-                <div class="input-box">
+                <div class="input-group">
                     <i class="fas fa-store"></i>
                     <select id="outlet" name="outlet" required>
-                        <option value="" disabled selected></option> <option value="Bolekaka Jatiwaringin">Bolekaka Jatiwaringin</option>
+                        <option value="" disabled selected>Pilih Outlet</option>
+                        <option value="Bolekaka Jatiwaringin">Bolekaka Jatiwaringin</option>
                         <option value="Bolekaka Galaxy">Bolekaka Galaxy</option>
                         <option value="Bolekaka Bintara">Bolekaka Bintara</option>
                         <option value="Bolekaka Pondok Ungu">Bolekaka Pondok Ungu</option>
                     </select>
-                    <label>Pilih Outlet</label>
                 </div>
 
-                <div class="input-box">
+                <div class="input-group">
                     <i class="fas fa-shopping-bag"></i>
                     <select id="platform" name="platform" required>
-                        <option value="" disabled selected></option>
+                        <option value="" disabled selected>Pilih Platform Beli</option>
                         <option value="Visit Toko">Visit Toko</option>
                         <option value="Admin WhatsApp">Admin WhatsApp</option>
                         <option value="Shopee">Shopee</option>
                         <option value="Tokopedia">Tokopedia</option>
                         <option value="Tiktok">Tiktok</option>
                     </select>
-                    <label>Platform Beli</label>
                 </div>
 
-                <div class="input-box" style="margin-top: 35px; border: 2px dashed #f7a01d;">
-                    <i class="fas fa-ticket-alt" style="color: #f7a01d;"></i>
-                    <input type="text" id="kode_voucher" name="kode_voucher" required autocomplete="off" style="font-weight: bold; letter-spacing: 1px; color: #004ba0;">
-                    <label style="color: #f7a01d;">KODE VOUCHER</label>
+                <div style="margin-top: 25px; margin-bottom: 5px;">
+                    <div class="input-group">
+                        <i class="fas fa-ticket-alt"></i>
+                        <input type="text" id="kode_voucher" name="kode_voucher" placeholder="Masukkan Kode Voucher" required style="font-weight:bold; letter-spacing: 1px;" autocomplete="off">
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-submit" id="submitBtn">
-                    <div class="spinner"></div>
-                    <span class="btn-text">KIRIM SEKARANG</span>
+                    <div class="spinner" id="loadingSpinner"></div>
+                    <span id="btnText">SUBMIT SEKARANG</span>
                 </button>
-
+                
                 <div id="message"></div>
-
             </form>
         </div>
     </div>
 
     <script>
-        // --- GANTI URL DI BAWAH INI DENGAN URL DEPLOY ANDA ---
+        // --- PASTE URL SCRIPT ANDA DI BAWAH INI ---
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwhgQUNPqCEDCUdFjn0wGryeZEBnNPEsqn9UaJtpYwKkczWUeKiDJ3lkLtdH2XcXioE/exec'; 
 
         const form = document.forms['voucherForm'];
-        const btn = document.querySelector('.btn-submit');
-        const btnText = document.querySelector('.btn-text');
-        const spinner = document.querySelector('.spinner');
+        const btn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const spinner = document.getElementById('loadingSpinner');
         const msgDiv = document.getElementById('message');
 
         form.addEventListener('submit', async e => {
             e.preventDefault();
             
-            // Loading UI
+            // 1. UI Loading State
             btn.disabled = true;
-            btnText.innerHTML = 'Memproses...';
-            spinner.style.display = 'block';
+            btnText.innerHTML = 'Memproses Data...';
+            spinner.style.display = 'block'; // Munculkan spinner
             msgDiv.style.display = 'none';
+            msgDiv.className = ''; // Reset class alert
 
             try {
+                // 2. Ambil IP Address (Optional, background process)
                 let userIP = "Unknown";
                 try {
                     const ipReq = await fetch('https://api.ipify.org?format=json');
                     const ipRes = await ipReq.json();
                     userIP = ipRes.ip;
-                } catch (err) {}
+                } catch (err) { console.warn("IP Fetch Fail"); }
 
+                // 3. User Agent
+                const userSystem = navigator.userAgent;
+
+                // 4. Siapkan Data
                 const formData = new FormData(form);
                 const data = Object.fromEntries(formData);
                 data.ip = userIP;
-                data.system = navigator.userAgent;
+                data.system = userSystem;
 
+                // 5. Kirim ke Backend
                 const response = await fetch(scriptURL, { 
                     method: 'POST', 
                     body: JSON.stringify(data)
@@ -307,27 +304,30 @@
                 
                 const result = await response.json();
 
+                // 6. Response Handling
                 if(result.result === 'success') {
-                    form.reset();
-                    msgDiv.className = 'success';
-                    msgDiv.innerHTML = '<b>BERHASIL!</b> <br>' + result.message;
+                    form.reset(); // Kosongkan form
+                    showMessage(result.message, 'msg-success');
                 } else {
-                    msgDiv.className = 'error';
-                    msgDiv.innerHTML = '<b>GAGAL!</b> <br>' + result.message;
+                    showMessage(result.message, 'msg-error');
                 }
-                msgDiv.style.display = 'block';
 
             } catch (error) {
-                msgDiv.className = 'error';
-                msgDiv.innerHTML = 'Gagal terhubung ke server. Cek koneksi internet.';
-                msgDiv.style.display = 'block';
+                showMessage('Koneksi Gagal! Cek internet anda.', 'msg-error');
+                console.error('Error!', error);
             } finally {
+                // Kembalikan Tombol ke Semula
                 btn.disabled = false;
-                btnText.innerHTML = 'KIRIM SEKARANG';
+                btnText.innerHTML = 'SUBMIT SEKARANG';
                 spinner.style.display = 'none';
             }
         });
-    </script>
 
+        function showMessage(text, className) {
+            msgDiv.innerHTML = text;
+            msgDiv.className = className; // Set warna background merah/hijau
+            msgDiv.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
