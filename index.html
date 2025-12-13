@@ -197,9 +197,10 @@
         }
 
         .msg-error {
-            background-color: rgba(255, 144, 144, 0.2);
-            border: 1px solid #ff9090;
-            color: #ffcccc;
+            /* change error/alert to yellow theme matching site colors */
+            background-color: rgba(247, 160, 29, 0.16);
+            border: 1px solid #f7a01d;
+            color: #3b2500;
         }
 
         /* Animation Keyframes */
@@ -230,7 +231,7 @@
             /* push the card down a bit so it doesn't overlap image text near the top
                and reduce form size for better fit on small screens */
             .card {
-                margin-top: 8vh; /* naik sedikit supaya tidak sampai area logo di bawah */
+                margin-top: 12vh; /* turun sedikit lagi sesuai permintaan */
                 margin-bottom: 20vh; /* beri ruang bawah untuk logo di background */
                 max-width: 280px; /* lebih kecil untuk muat */
                 width: calc(100% - 32px);
@@ -252,7 +253,7 @@
                 background-position: center center;
             }
             /* slightly lower the card on desktop for better balance */
-            .card { margin-top: 14vh; max-width: 480px; }
+            .card { margin-top: 18vh; max-width: 480px; }
             .card-body { padding: 28px; }
         }
     </style>
