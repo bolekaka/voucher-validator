@@ -10,112 +10,153 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- GLOBAL STYLE --- */
-        body {
-            font-family: 'Poppins', sans-serif;
+        /* --- 1. GLOBAL RESET --- */
+        body, html {
+            height: 100%;
             margin: 0;
             padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #0b1e33; /* Fallback color */
             overflow-x: hidden;
-            background-color: #0b1e33;
         }
 
-        /* --- BACKGROUND WALLPAPER --- */
+        /* --- 2. WALLPAPER LOGIC (CRITICAL) --- */
         .bg-wallpaper {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
             z-index: -1;
-            transition: background 0.3s ease-in-out;
         }
 
-        /* TAMPILAN MOBILE (Default) */
+        /* TAMPILAN MOBILE (HP) */
         .bg-wallpaper {
-            /* Menggunakan URL GitHub Raw agar langsung muncul */
-            background: url("https://raw.githubusercontent.com/bolekaka/voucher-validator/refs/heads/main/mobile.jpg") no-repeat top center;
-            background-size: 100% auto;
-            background-attachment: scroll;
-            background-color: #0088ff;
+            /* Gambar Mobile di atas */
+            background-image: url('mobile.jpg');
+            background-repeat: no-repeat;
+            background-position: top center;
+            background-size: 100% auto; /* Lebar 100%, Tinggi menyesuaikan gambar */
+            
+            /* Warna Biru Solid untuk sisa layar di bawah gambar */
+            background-color: #0088ff; 
         }
 
         /* TAMPILAN DESKTOP (Layar > 992px) */
         @media (min-width: 992px) {
             .bg-wallpaper {
-                background: url("https://raw.githubusercontent.com/bolekaka/voucher-validator/refs/heads/main/desktop.jpg") no-repeat center center;
+                /* Gambar Desktop Full Cover */
+                background-image: url('desktop.jpg');
+                background-position: center center;
                 background-size: cover;
                 background-attachment: fixed;
             }
         }
 
-        /* --- CONTAINER UTAMA --- */
-        .main-container {
+        /* --- 3. LAYOUT CONTAINER --- */
+        .main-wrapper {
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            /* PENTING UNTUK MOBILE: Mulai dari atas, bukan tengah */
-            align-items: flex-start; 
-            padding: 15px;
             width: 100%;
+            padding: 15px;
+            
+            /* Flexbox Setup */
+            display: flex;
+            flex-direction: column;
         }
 
-        /* --- CUSTOM CARD (FORM) --- */
+        /* POSISI MOBILE: Align Top (Supaya bisa didorong margin) */
+        @media (max-width: 991px) {
+            .main-wrapper {
+                justify-content: flex-start; /* Mulai dari atas */
+                align-items: center; /* Tengah secara horizontal */
+            }
+        }
+
+        /* POSISI DESKTOP: Center All (Tengah total) */
+        @media (min-width: 992px) {
+            .main-wrapper {
+                justify-content: center; /* Tengah Vertikal */
+                align-items: center; /* Tengah Horizontal */
+            }
+        }
+
+        /* --- 4. CARD FORM STYLE --- */
         .custom-card {
             width: 100%;
-            background-color: rgba(0, 86, 179, 0.9); /* Biru Transparan */
-            border-radius: 12px;
+            max-width: 400px; /* Lebar maksimal form */
+            
+            background-color: rgba(0, 86, 179, 0.85); /* Biru Transparan */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
-            
-            /* PENTING: Margin Top Besar agar turun ke bawah tulisan 'Akhir Tahun' */
-            margin-top: 230px; 
-            margin-bottom: 50px;
+
+            /* TRANSISI HALUS */
+            transition: all 0.3s ease;
         }
 
-        /* HEADER */
+        /* SPESIFIK MOBILE: Margin Top Besar */
+        @media (max-width: 991px) {
+            .custom-card {
+                /* Dorong form ke bawah agar tidak menutupi tulisan 'Akhir Tahun' */
+                /* Sesuaikan angka ini jika kurang turun/terlalu turun */
+                margin-top: 240px; 
+                margin-bottom: 50px;
+            }
+        }
+
+        /* SPESIFIK DESKTOP: Reset Margin */
+        @media (min-width: 992px) {
+            .custom-card {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        }
+
+        /* --- 5. ELEMENT STYLE --- */
         .card-header-custom {
             background-color: rgba(0, 75, 160, 0.95);
             color: #f7a01d;
+            padding: 15px;
             text-align: center;
-            padding: 12px; /* Diperkecil sedikit */
             font-weight: 700;
-            font-size: 15px;
-            letter-spacing: 0.5px;
+            font-size: 16px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* BODY FORM */
         .card-body-custom {
-            padding: 15px; /* Padding diperkecil agar compact */
+            padding: 20px;
         }
 
-        /* --- INPUT STYLING --- */
+        /* Input Fields */
         .input-group-custom {
             position: relative;
-            margin-bottom: 8px; /* Jarak antar input diperapat */
+            margin-bottom: 10px;
         }
 
         .input-group-custom i {
             position: absolute;
-            left: 12px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
             color: #004ba0;
             font-size: 14px;
-            z-index: 2;
+            z-index: 10;
         }
 
         .form-control-custom {
             width: 100%;
-            padding: 8px 15px 8px 40px; /* Padding disesuaikan */
+            height: 42px;
+            padding: 5px 15px 5px 45px; /* Padding kiri untuk ikon */
+            border-radius: 8px;
             border: 2px solid transparent;
-            border-radius: 6px;
-            font-size: 13px; /* Font size pas untuk HP */
-            color: #333;
-            background-color: #fff;
-            outline: none;
+            font-size: 13px;
             font-weight: 500;
-            transition: 0.3s;
-            height: 38px; /* Tinggi input diperkecil jadi 38px */
+            color: #333;
+            outline: none;
+            background: #fff;
         }
 
         .form-control-custom:focus {
@@ -123,7 +164,7 @@
             box-shadow: 0 0 8px rgba(247, 160, 29, 0.4);
         }
 
-        /* Select Arrow Custom */
+        /* Fix Select Arrow */
         select.form-control-custom {
             appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23004ba0'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
@@ -132,143 +173,118 @@
             background-size: 14px;
         }
 
-        /* --- BUTTON --- */
+        /* Button */
         .btn-submit {
             width: 100%;
-            padding: 10px;
-            background-color: #fff;
+            padding: 12px;
+            background: #fff;
             color: #004ba0;
             font-weight: 800;
             font-size: 14px;
             text-transform: uppercase;
             border: none;
-            border-radius: 6px;
-            cursor: pointer;
+            border-radius: 8px;
             margin-top: 10px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             transition: 0.2s;
-            display: flex; justify-content: center; align-items: center; gap: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-        .btn-submit:hover { background-color: #f0f0f0; }
+        .btn-submit:hover { background: #f0f0f0; }
         .btn-submit:active { transform: scale(0.98); }
 
-        /* --- SPINNER & ALERT --- */
+        /* Helpers */
         .spinner {
-            width: 14px; height: 14px; border: 3px solid #ccc; border-top: 3px solid #0056b3;
+            width: 16px; height: 16px; 
+            border: 3px solid #ccc; border-top: 3px solid #004ba0;
             border-radius: 50%; animation: spin 1s linear infinite; display: none;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         #message {
-            margin-top: 10px; padding: 8px; border-radius: 6px; text-align: center;
-            font-size: 12px; font-weight: 600; display: none;
+            margin-top: 15px; padding: 10px; border-radius: 6px;
+            text-align: center; font-size: 12px; font-weight: 600; display: none;
         }
-        .msg-success { background: rgba(144, 255, 144, 0.95); color: #006d00; }
-        .msg-error { background: rgba(255, 144, 144, 0.95); color: #8a0000; }
+        .msg-success { background: #d4edda; color: #155724; }
+        .msg-error { background: #f8d7da; color: #721c24; }
 
-        /* --- RESPONSIVE LOGIC --- */
-
-        /* DESKTOP (Layar Besar) */
-        @media (min-width: 992px) {
-            .main-container {
-                align-items: center; /* Kembali ke tengah vertikal untuk desktop */
-            }
-            .custom-card {
-                max-width: 380px;
-                /* Reset margin mobile */
-                margin-top: 0; 
-                margin-bottom: 0;
-            }
-            .card-header-custom {
-                font-size: 18px;
-                padding: 15px;
-            }
-            .form-control-custom {
-                height: 42px; /* Kembalikan tinggi normal di desktop */
-                font-size: 14px;
-            }
-            .input-group-custom {
-                margin-bottom: 12px;
-            }
-        }
-        
     </style>
 </head>
 <body>
 
     <div class="bg-wallpaper"></div>
 
-    <div class="main-container">
+    <div class="main-wrapper">
         
-        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+        <div class="custom-card">
             
-            <div class="custom-card">
-                <div class="card-header-custom">
-                    FORM PESERTA UNDIAN
-                </div>
-                
-                <div class="card-body-custom">
-                    <form id="voucherForm" autocomplete="off">
-                        
-                        <div class="input-group-custom">
-                            <i class="fas fa-user"></i>
-                            <input type="text" class="form-control-custom" id="nama" name="nama" placeholder="Nama Lengkap" required autocomplete="off">
-                        </div>
-
-                        <div class="input-group-custom">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <input type="text" class="form-control-custom" id="domisili" name="domisili" placeholder="Domisili / Kota" required autocomplete="off">
-                        </div>
-
-                        <div class="input-group-custom">
-                            <i class="fas fa-phone"></i>
-                            <input type="tel" class="form-control-custom" id="telepon" name="telepon" placeholder="No. Telepon / WhatsApp" required autocomplete="off">
-                        </div>
-
-                        <div class="input-group-custom">
-                            <i class="fas fa-store"></i>
-                            <select class="form-control-custom" id="outlet" name="outlet" required>
-                                <option value="" disabled selected>Pilih Outlet</option>
-                                <option value="Bolekaka Jatiwaringin">Bolekaka Jatiwaringin</option>
-                                <option value="Bolekaka Galaxy">Bolekaka Galaxy</option>
-                                <option value="Bolekaka Bintara">Bolekaka Bintara</option>
-                                <option value="Bolekaka Pondok Ungu">Bolekaka Pondok Ungu</option>
-                            </select>
-                        </div>
-
-                        <div class="input-group-custom">
-                            <i class="fas fa-shopping-bag"></i>
-                            <select class="form-control-custom" id="platform" name="platform" required>
-                                <option value="" disabled selected>Pilih Platform Beli</option>
-                                <option value="Visit Toko">Visit Toko</option>
-                                <option value="Admin WhatsApp">Admin WhatsApp</option>
-                                <option value="Shopee">Shopee</option>
-                                <option value="Tokopedia">Tokopedia</option>
-                                <option value="Tiktok">Tiktok</option>
-                            </select>
-                        </div>
-
-                        <div class="input-group-custom">
-                            <i class="fas fa-ticket-alt"></i>
-                            <input type="text" class="form-control-custom" id="kode_voucher" name="kode_voucher" placeholder="Masukkan Kode Voucher" required style="font-weight:bold; letter-spacing: 0.5px;" autocomplete="off">
-                        </div>
-
-                        <button type="submit" class="btn-submit" id="submitBtn">
-                            <div class="spinner" id="loadingSpinner"></div>
-                            <span id="btnText">SUBMIT SEKARANG</span>
-                        </button>
-                        
-                        <div id="message"></div>
-                    </form>
-                </div>
+            <div class="card-header-custom">
+                FORM PESERTA UNDIAN
             </div>
+            
+            <div class="card-body-custom">
+                <form id="voucherForm" autocomplete="off">
+                    
+                    <div class="input-group-custom">
+                        <i class="fas fa-user"></i>
+                        <input type="text" class="form-control-custom" id="nama" name="nama" placeholder="Nama Lengkap" required>
+                    </div>
 
+                    <div class="input-group-custom">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" class="form-control-custom" id="domisili" name="domisili" placeholder="Domisili / Kota" required>
+                    </div>
+
+                    <div class="input-group-custom">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" class="form-control-custom" id="telepon" name="telepon" placeholder="No. Telepon / WhatsApp" required>
+                    </div>
+
+                    <div class="input-group-custom">
+                        <i class="fas fa-store"></i>
+                        <select class="form-control-custom" id="outlet" name="outlet" required>
+                            <option value="" disabled selected>Pilih Outlet</option>
+                            <option value="Bolekaka Jatiwaringin">Bolekaka Jatiwaringin</option>
+                            <option value="Bolekaka Galaxy">Bolekaka Galaxy</option>
+                            <option value="Bolekaka Bintara">Bolekaka Bintara</option>
+                            <option value="Bolekaka Pondok Ungu">Bolekaka Pondok Ungu</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group-custom">
+                        <i class="fas fa-shopping-bag"></i>
+                        <select class="form-control-custom" id="platform" name="platform" required>
+                            <option value="" disabled selected>Pilih Platform Beli</option>
+                            <option value="Visit Toko">Visit Toko</option>
+                            <option value="Admin WhatsApp">Admin WhatsApp</option>
+                            <option value="Shopee">Shopee</option>
+                            <option value="Tokopedia">Tokopedia</option>
+                            <option value="Tiktok">Tiktok</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group-custom">
+                        <i class="fas fa-ticket-alt"></i>
+                        <input type="text" class="form-control-custom" id="kode_voucher" name="kode_voucher" placeholder="Masukkan Kode Voucher" required style="font-weight:bold; letter-spacing: 0.5px;">
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <div class="spinner" id="loadingSpinner"></div>
+                        <span id="btnText">SUBMIT SEKARANG</span>
+                    </button>
+                    
+                    <div id="message"></div>
+
+                </form>
+            </div>
         </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // SCRIPT GOOGLE APPS SCRIPT ANDA
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwhgQUNPqCEDCUdFjn0wGryeZEBnNPEsqn9UaJtpYwKkczWUeKiDJ3lkLtdH2XcXioE/exec'; 
 
         const form = document.forms['voucherForm'];
