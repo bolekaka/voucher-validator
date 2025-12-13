@@ -1,450 +1,587 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Form Peserta Undian</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* --- RESET & BASIC SETUP --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>FORM PESERTA UNDIAN</title>
 
-        /*
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* --- RESET & BASIC SETUP --- */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /*
          * Responsive background images
          * Place `desktop.jpg` (for desktop/laptop) and `mobile.jpg` (for phones)
          * in the project root (same folder as this `index.html`).
          */
-        body {
-            /* Default: desktop background */
-            background-image: url('desktop.jpg');
-            background-color: #0b1e33; /* Fallback color */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+      body {
+        /* Default: desktop background */
+        background-image: url("desktop.jpg");
+        background-color: #0b1e33; /* Fallback color */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      /* Note: no global dark overlay — user requested no darkening */
+      .card {
+        position: relative;
+      }
+
+      /* --- CARD CONTAINER --- */
+      .card {
+        width: 100%;
+        max-width: 560px; /* Reduce desktop width per request */
+        /* Desktop card more transparent to reveal more wallpaper */
+        background-color: rgba(0, 86, 179, 0.6);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        animation: fadeIn 0.8s ease-in-out;
+      }
+
+      /* --- HEADER --- */
+      .card-header {
+        /* Desktop: more transparent header for wallpaper visibility */
+        background-color: rgba(0, 75, 160, 0.65);
+        color: #f7a01d; /* Warna Orange Teks */
+        text-align: center;
+        padding: 20px 15px;
+        font-weight: 600;
+        font-size: 1.2rem;
+        letter-spacing: 0.5px;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+        backdrop-filter: saturate(110%) blur(3px);
+        overflow: hidden;
+      }
+
+      /* --- BODY FORM --- */
+      .card-body {
+        /* Desktop: more transparent body to reveal wallpaper behind */
+        background-color: rgba(0, 86, 179, 0.66);
+        padding: 25px;
+        backdrop-filter: saturate(110%) blur(2px);
+      }
+
+      /* --- INPUT GROUP (ICON + INPUT) --- */
+      .input-group {
+        position: relative;
+        margin-bottom: 10px; /* tightened and consistent spacing */
+      }
+
+      .input-group i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #004ba0;
+        font-size: 16px;
+        pointer-events: none; /* Supaya ikon tembus klik */
+      }
+
+      .card-title {
+        font-size: 1.6rem;
+        margin: 0;
+        font-weight: 900;
+        letter-spacing: 0.6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 14px 15px 14px 45px; /* Padding kiri besar untuk ikon */
+        border: 2px solid transparent;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #333;
+        background-color: #fff;
+        outline: none;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      /* Voucher input specific styling: remove extra letter spacing */
+      .voucher-input {
+        font-weight: 700;
+        letter-spacing: normal; /* ensure letters are tight and consistent */
+      }
+
+      /* Efek saat diklik (Focus) */
+      input:focus,
+      select:focus {
+        border-color: #f7a01d; /* Border jadi orange saat ngetik */
+        box-shadow: 0 0 8px rgba(247, 160, 29, 0.3);
+      }
+
+      ::placeholder {
+        color: #999;
+        font-weight: 400;
+      }
+
+      /* Dropdown Arrow Custom */
+      select {
+        appearance: none;
+        -webkit-appearance: none;
+        /* default show placeholder-like color until a real option is selected */
+        color: #999;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23004ba0'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 20px;
+        cursor: pointer;
+      }
+
+      /* When a valid option is selected, show normal text color */
+      select:focus,
+      select:valid {
+        color: #333;
+      }
+      /* Ensure option text is readable */
+      select option {
+        color: #333;
+      }
+
+      /* --- SUBMIT BUTTON --- */
+      .btn-submit {
+        width: 100%;
+        padding: 14px;
+        background-color: #fff;
+        color: #0056b3;
+        font-weight: 700;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        margin-top: 0; /* rely on input-group bottom margin for spacing */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-submit:active {
+        transform: scale(0.98);
+      }
+
+      .btn-submit:disabled {
+        background-color: #e0e0e0;
+        color: #888;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* Loading Spinner */
+      .spinner {
+        width: 18px;
+        height: 18px;
+        border: 3px solid #ccc;
+        border-top: 3px solid #0056b3;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        display: none; /* Sembunyikan default */
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
         }
-
-        /* Note: no global dark overlay — user requested no darkening */
-        .card { position: relative; }
-
-        /* --- CARD CONTAINER --- */
-        .card {
-            width: 100%;
-            max-width: 560px; /* Reduce desktop width per request */
-            /* Desktop card more transparent to reveal more wallpaper */
-            background-color: rgba(0,86,179,0.60);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            animation: fadeIn 0.8s ease-in-out;
+        100% {
+          transform: rotate(360deg);
         }
+      }
 
-        /* --- HEADER --- */
-        .card-header {
-            /* Desktop: more transparent header for wallpaper visibility */
-            background-color: rgba(0,75,160,0.65);
-            color: #f7a01d; /* Warna Orange Teks */
-            text-align: center;
-            padding: 20px 15px;
-            font-weight: 600;
-            font-size: 1.2rem;
-            letter-spacing: 0.5px;
-            border-bottom: 2px solid rgba(0,0,0,0.06);
-            backdrop-filter: saturate(110%) blur(3px);
-            overflow: hidden;
-        }
+      /* --- ALERT MESSAGES --- */
+      #message {
+        margin-top: 12px;
+        padding: 12px;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 500;
+        display: none;
+        animation: slideDown 0.4s ease-out;
+      }
 
-        /* --- BODY FORM --- */
-        .card-body {
-            /* Desktop: more transparent body to reveal wallpaper behind */
-            background-color: rgba(0,86,179,0.66);
-            padding: 25px;
-            backdrop-filter: saturate(110%) blur(2px);
-        }
-
-        /* --- INPUT GROUP (ICON + INPUT) --- */
-        .input-group {
-            position: relative;
-            margin-bottom: 10px; /* tightened and consistent spacing */
-        }
-
-        .input-group i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #004ba0;
-            font-size: 16px;
-            pointer-events: none; /* Supaya ikon tembus klik */
-        }
-
-        .card-title { font-size: 1.6rem; margin: 0; font-weight: 900; letter-spacing: 0.6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-        input, select {
-            width: 100%;
-            padding: 14px 15px 14px 45px; /* Padding kiri besar untuk ikon */
-            border: 2px solid transparent;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #333;
-            background-color: #fff;
-            outline: none;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        /* Voucher input specific styling: remove extra letter spacing */
-        .voucher-input {
-            font-weight: 700;
-            letter-spacing: normal; /* ensure letters are tight and consistent */
-        }
-
-        /* Efek saat diklik (Focus) */
-        input:focus, select:focus {
-            border-color: #f7a01d; /* Border jadi orange saat ngetik */
-            box-shadow: 0 0 8px rgba(247, 160, 29, 0.3);
-        }
-
-        ::placeholder {
-            color: #999;
-            font-weight: 400;
-        }
-
-        /* Dropdown Arrow Custom */
-        select {
-            appearance: none;
-            -webkit-appearance: none;
-            /* default show placeholder-like color until a real option is selected */
-            color: #999;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23004ba0'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-            background-size: 20px;
-            cursor: pointer;
-        }
-
-        /* When a valid option is selected, show normal text color */
-        select:focus, select:valid { color: #333; }
-        /* Ensure option text is readable */
-        select option { color: #333; }
-
-        /* --- SUBMIT BUTTON --- */
-        .btn-submit {
-            width: 100%;
-            padding: 14px;
-            background-color: #fff;
-            color: #0056b3;
-            font-weight: 700;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 0; /* rely on input-group bottom margin for spacing */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-submit:active {
-            transform: scale(0.98);
-        }
-
-        .btn-submit:disabled {
-            background-color: #e0e0e0;
-            color: #888;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            width: 18px;
-            height: 18px;
-            border: 3px solid #ccc;
-            border-top: 3px solid #0056b3;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            display: none; /* Sembunyikan default */
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* --- ALERT MESSAGES --- */
-        #message {
-            margin-top: 12px;
-            padding: 12px;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 500;
-            display: none;
-            animation: slideDown 0.4s ease-out;
-        }
-
-        /* section wrapper for grouped inputs (replaces ad-hoc inline styles)
+      /* section wrapper for grouped inputs (replaces ad-hoc inline styles)
            Keep it neutral so spacing is controlled only by `.input-group` */
-        .input-section { margin: 0; padding: 0; }
+      .input-section {
+        margin: 0;
+        padding: 0;
+      }
 
-        /* Ensure spacing is driven by input-group only and last input has consistent gap */
-        .card-body .input-group { margin-bottom: 10px; }
-        .card-body .input-group:last-of-type { margin-bottom: 10px; }
+      /* Ensure spacing is driven by input-group only and last input has consistent gap */
+      .card-body .input-group {
+        margin-bottom: 10px;
+      }
+      .card-body .input-group:last-of-type {
+        margin-bottom: 10px;
+      }
 
-        .msg-success {
-            /* success matches the blue theme */
-            background-color: rgba(0, 86, 179, 0.12);
-            border: 1px solid #0056b3;
-            color: #004ba0;
+      .msg-success {
+        /* success matches the blue theme */
+        background-color: rgba(0, 86, 179, 0.12);
+        border: 1px solid #0056b3;
+        color: #004ba0;
+      }
+
+      .msg-error {
+        /* error uses the yellow/orange theme */
+        background-color: rgba(247, 160, 29, 0.16);
+        border: 1px solid #f7a01d;
+        color: #f7a01d;
+      }
+
+      /* Animation Keyframes */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
         }
-
-        .msg-error {
-            /* error uses the yellow/orange theme */
-            background-color: rgba(247, 160, 29, 0.16);
-            border: 1px solid #f7a01d;
-            color: #f7a01d;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-
-        /* Animation Keyframes */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
         }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
 
-        /* Mobile Fixes */
-        @media (max-width: 480px) {
-            .card-header { font-size: 1.1rem; }
-            input, select, .btn-submit { font-size: 13px; }
+      /* Mobile Fixes */
+      @media (max-width: 480px) {
+        .card-header {
+          font-size: 1.1rem;
         }
+        input,
+        select,
+        .btn-submit {
+          font-size: 13px;
+        }
+      }
 
-        /* Use mobile background on typical phone widths and avoid covering image text */
-        @media (max-width: 767px) {
-            body {
-                background-image: url('mobile.jpg');
-                /* prefer top so any text in the image sits above the form */
-                background-position: top center;
-                /* On mobile, avoid fixed background for performance */
-                background-attachment: scroll;
-            }
-            /* push the card down a bit so it doesn't overlap image text near the top
+      /* Use mobile background on typical phone widths and avoid covering image text */
+      @media (max-width: 767px) {
+        body {
+          background-image: url("mobile.jpg");
+          /* prefer top so any text in the image sits above the form */
+          background-position: top center;
+          /* On mobile, avoid fixed background for performance */
+          background-attachment: scroll;
+        }
+        /* push the card down a bit so it doesn't overlap image text near the top
                and reduce form size for better fit on small screens */
-            .card {
-                margin-top: 12vh; /* turun sedikit lagi sesuai permintaan */
-                margin-bottom: 20vh; /* beri ruang bawah untuk logo di background */
-                max-width: 320px; /* lebih kecil untuk muat, tapi agak lebih lebar untuk kenyamanan */
-                width: calc(100% - 32px);
-                transform: none;
-                box-shadow: 0 6px 18px rgba(0,0,0,0.22);
-                /* show background wallpaper behind card on mobile */
-                background-color: transparent;
-            }
-            .card-body { padding: 12px; background-color: rgba(0,86,179,0.66); }
-            .card-header { padding: 10px 8px; font-size: 0.98rem; background-color: rgba(0,75,160,0.6); }
-            input, select { font-size: 11px; padding: 9px 10px 9px 40px; }
-            .card-title { font-size: 1.05rem; }
-            .btn-submit { padding: 12px; font-size: 14px; }
+        .card {
+          margin-top: 12vh; /* turun sedikit lagi sesuai permintaan */
+          margin-bottom: 20vh; /* beri ruang bawah untuk logo di background */
+          max-width: 320px; /* lebih kecil untuk muat, tapi agak lebih lebar untuk kenyamanan */
+          width: calc(100% - 32px);
+          transform: none;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+          /* show background wallpaper behind card on mobile */
+          background-color: transparent;
         }
+        .card-body {
+          padding: 12px;
+          background-color: rgba(0, 86, 179, 0.66);
+        }
+        .card-header {
+          padding: 10px 8px;
+          font-size: 0.98rem;
+          background-color: rgba(0, 75, 160, 0.6);
+        }
+        input,
+        select {
+          font-size: 11px;
+          padding: 9px 10px 9px 40px;
+        }
+        .card-title {
+          font-size: 1.05rem;
+        }
+        .btn-submit {
+          padding: 12px;
+          font-size: 14px;
+        }
+      }
 
-        /* Desktop layout: center the card horizontally (user requested center) */
-        @media (min-width: 1024px) {
-            body {
-                justify-content: center;
-                padding-left: 0;
-                /* keep background centered so wallpaper content stays visible */
-                background-position: center center;
-            }
-            /* slightly lower the card on desktop for better balance */
-            /* keep a consistent max width on desktop */
-            .card { margin-top: 18vh; max-width: 560px; background-color: rgba(0,86,179,0.35); }
-            .card-body { padding: 20px; background-color: rgba(0,86,179,0.35); }
-            /* Desktop header: more transparent and add white separator line */
-            .card-header { background-color: rgba(0,75,160,0.55); border-bottom: 2px solid rgba(255,255,255,0.18); }
-            /* slightly larger inputs on desktop for comfortable reading */
-            .card-body input, .card-body select { font-size: 15px; padding: 14px 16px 14px 45px; }
+      /* Desktop layout: center the card horizontally (user requested center) */
+      @media (min-width: 1024px) {
+        body {
+          justify-content: center;
+          padding-left: 0;
+          /* keep background centered so wallpaper content stays visible */
+          background-position: center center;
         }
+        /* slightly lower the card on desktop for better balance */
+        /* keep a consistent max width on desktop */
+        .card {
+          margin-top: 18vh;
+          max-width: 560px;
+          background-color: rgba(0, 86, 179, 0.35);
+        }
+        .card-body {
+          padding: 20px;
+          background-color: rgba(0, 86, 179, 0.35);
+        }
+        /* Desktop header: more transparent and add white separator line */
+        .card-header {
+          background-color: rgba(0, 75, 160, 0.55);
+          border-bottom: 2px solid rgba(255, 255, 255, 0.18);
+        }
+        /* slightly larger inputs on desktop for comfortable reading */
+        .card-body input,
+        .card-body select {
+          font-size: 15px;
+          padding: 14px 16px 14px 45px;
+        }
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="card">
-        <div class="card-header">
-            <h1 class="card-title">FORM PESERTA UNDIAN</h1>
-        </div>
-        <div class="card-body">
-            <form id="voucherForm" autocomplete="off">
-                
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" id="nama" name="nama" placeholder="Nama Lengkap" required autocomplete="name" aria-label="Nama Lengkap">
-                </div>
+      <div class="card-header">
+        <h1 class="card-title">FORM PESERTA UNDIAN</h1>
+      </div>
+      <div class="card-body">
+        <form id="voucherForm" autocomplete="off">
+          <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input
+              type="text"
+              id="nama"
+              name="nama"
+              placeholder="Nama Lengkap"
+              required
+              autocomplete="name"
+              aria-label="Nama Lengkap"
+            />
+          </div>
 
-                <div class="input-group">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <input type="text" id="domisili" name="domisili" placeholder="Domisili / Kota" required autocomplete="address-level2" aria-label="Domisili / Kota">
-                </div>
+          <div class="input-group">
+            <i class="fas fa-map-marker-alt"></i>
+            <input
+              type="text"
+              id="domisili"
+              name="domisili"
+              placeholder="Domisili / Kota"
+              required
+              autocomplete="address-level2"
+              aria-label="Domisili / Kota"
+            />
+          </div>
 
-                <div class="input-group">
-                    <i class="fas fa-phone"></i>
-                    <input type="tel" id="telepon" name="telepon" placeholder="No. Telepon / WhatsApp" required autocomplete="tel" inputmode="tel">
-                </div>
+          <div class="input-group">
+            <i class="fas fa-phone"></i>
+            <input
+              type="tel"
+              id="telepon"
+              name="telepon"
+              placeholder="No. Telepon / WhatsApp"
+              required
+              autocomplete="tel"
+              inputmode="tel"
+            />
+          </div>
 
-                <div class="input-group">
-                    <i class="fas fa-store"></i>
-                    <select id="outlet" name="outlet" required aria-label="Pilih Outlet">
-                        <option value="" disabled selected>Pilih Outlet</option>
-                        <option value="Bolekaka Jatiwaringin">Bolekaka Jatiwaringin</option>
-                        <option value="Bolekaka Galaxy">Bolekaka Galaxy</option>
-                        <option value="Bolekaka Bintara">Bolekaka Bintara</option>
-                        <option value="Bolekaka Pondok Ungu">Bolekaka Pondok Ungu</option>
-                    </select>
-                </div>
+          <div class="input-group">
+            <i class="fas fa-store"></i>
+            <select
+              id="outlet"
+              name="outlet"
+              required
+              aria-label="Pilih Outlet"
+            >
+              <option value="" disabled selected>Pilih Outlet</option>
+              <option value="Bolekaka Jatiwaringin">
+                Bolekaka Jatiwaringin
+              </option>
+              <option value="Bolekaka Galaxy">Bolekaka Galaxy</option>
+              <option value="Bolekaka Bintara">Bolekaka Bintara</option>
+              <option value="Bolekaka Pondok Ungu">Bolekaka Pondok Ungu</option>
+            </select>
+          </div>
 
-                <div class="input-group">
-                    <i class="fas fa-shopping-bag"></i>
-                    <select id="platform" name="platform" required aria-label="Pilih Platform Beli">
-                        <option value="" disabled selected>Pilih Platform Beli</option>
-                        <option value="Visit Toko">Visit Toko</option>
-                        <option value="Admin WhatsApp">Admin WhatsApp</option>
-                        <option value="Shopee">Shopee</option>
-                        <option value="Tokopedia">Tokopedia</option>
-                        <option value="Tiktok">Tiktok</option>
-                    </select>
-                </div>
+          <div class="input-group">
+            <i class="fas fa-shopping-bag"></i>
+            <select
+              id="platform"
+              name="platform"
+              required
+              aria-label="Pilih Platform Beli"
+            >
+              <option value="" disabled selected>Pilih Platform Beli</option>
+              <option value="Visit Toko">Visit Toko</option>
+              <option value="Admin WhatsApp">Admin WhatsApp</option>
+              <option value="Shopee">Shopee</option>
+              <option value="Tokopedia">Tokopedia</option>
+              <option value="Tiktok">Tiktok</option>
+            </select>
+          </div>
 
-                <div class="input-section">
-                    <div class="input-group">
-                        <i class="fas fa-ticket-alt"></i>
-                        <input class="voucher-input" type="text" id="kode_voucher" name="kode_voucher" placeholder="Masukkan Kode Voucher" required autocomplete="off" aria-label="Kode Voucher">
-                    </div>
-                </div>
+          <div class="input-section">
+            <div class="input-group">
+              <i class="fas fa-ticket-alt"></i>
+              <input
+                class="voucher-input"
+                type="text"
+                id="kode_voucher"
+                name="kode_voucher"
+                placeholder="Masukkan Kode Voucher"
+                required
+                autocomplete="off"
+                aria-label="Kode Voucher"
+              />
+            </div>
+          </div>
 
-                <button type="submit" class="btn-submit" id="submitBtn">
-                    <div class="spinner" id="loadingSpinner"></div>
-                    <span id="btnText">SUBMIT SEKARANG</span>
-                </button>
-                
-                <div id="message" role="status" aria-live="polite" tabindex="-1"></div>
-            </form>
-        </div>
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <div class="spinner" id="loadingSpinner"></div>
+            <span id="btnText">SUBMIT SEKARANG</span>
+          </button>
+
+          <div
+            id="message"
+            role="status"
+            aria-live="polite"
+            tabindex="-1"
+          ></div>
+        </form>
+      </div>
     </div>
 
     <script>
-        // Ensure correct background image is used on mobile devices
-        function applyResponsiveBackground() {
-            const isMobile = window.innerWidth <= 767;
-            if (isMobile) {
-                document.body.style.backgroundImage = "url('mobile.jpg')";
-                document.body.style.backgroundPosition = 'top center';
-                document.body.style.backgroundAttachment = 'scroll';
-            } else {
-                document.body.style.backgroundImage = "url('desktop.jpg')";
-                document.body.style.backgroundPosition = 'center center';
-                document.body.style.backgroundAttachment = 'fixed';
-            }
+      // Ensure correct background image is used on mobile devices
+      function applyResponsiveBackground() {
+        const isMobile = window.innerWidth <= 767;
+        if (isMobile) {
+          document.body.style.backgroundImage = "url('mobile.jpg')";
+          document.body.style.backgroundPosition = "top center";
+          document.body.style.backgroundAttachment = "scroll";
+        } else {
+          document.body.style.backgroundImage = "url('desktop.jpg')";
+          document.body.style.backgroundPosition = "center center";
+          document.body.style.backgroundAttachment = "fixed";
         }
-        // Run on load and resize/orientation change
-        window.addEventListener('load', applyResponsiveBackground);
-        window.addEventListener('resize', applyResponsiveBackground);
-        window.addEventListener('orientationchange', applyResponsiveBackground);
+      }
+      // Run on load and resize/orientation change
+      window.addEventListener("load", applyResponsiveBackground);
+      window.addEventListener("resize", applyResponsiveBackground);
+      window.addEventListener("orientationchange", applyResponsiveBackground);
 
-        // --- PASTE URL SCRIPT ANDA DI BAWAH INI ---
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwhgQUNPqCEDCUdFjn0wGryeZEBnNPEsqn9UaJtpYwKkczWUeKiDJ3lkLtdH2XcXioE/exec'; 
+      // --- PASTE URL SCRIPT ANDA DI BAWAH INI ---
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbwhgQUNPqCEDCUdFjn0wGryeZEBnNPEsqn9UaJtpYwKkczWUeKiDJ3lkLtdH2XcXioE/exec";
 
-        const form = document.forms['voucherForm'];
-        const btn = document.getElementById('submitBtn');
-        const btnText = document.getElementById('btnText');
-        const spinner = document.getElementById('loadingSpinner');
-        const msgDiv = document.getElementById('message');
+      const form = document.forms["voucherForm"];
+      const btn = document.getElementById("submitBtn");
+      const btnText = document.getElementById("btnText");
+      const spinner = document.getElementById("loadingSpinner");
+      const msgDiv = document.getElementById("message");
 
-        form.addEventListener('submit', async e => {
-            e.preventDefault();
-            
-            // 1. UI Loading State
-            btn.disabled = true;
-            btnText.innerHTML = 'Memproses Data...';
-            spinner.style.display = 'block'; // Munculkan spinner
-            msgDiv.style.display = 'none';
-            msgDiv.className = ''; // Reset class alert
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-            try {
-                // 2. Ambil IP Address (Optional, background process)
-                let userIP = "Unknown";
-                try {
-                    const ipReq = await fetch('https://api.ipify.org?format=json');
-                    const ipRes = await ipReq.json();
-                    userIP = ipRes.ip;
-                } catch (err) { console.warn("IP Fetch Fail"); }
+        // 1. UI Loading State
+        btn.disabled = true;
+        btnText.innerHTML = "Memproses Data...";
+        spinner.style.display = "block"; // Munculkan spinner
+        msgDiv.style.display = "none";
+        msgDiv.className = ""; // Reset class alert
 
-                // 3. User Agent
-                const userSystem = navigator.userAgent;
+        try {
+          // 2. Ambil IP Address (Optional, background process)
+          let userIP = "Unknown";
+          try {
+            const ipReq = await fetch("https://api.ipify.org?format=json");
+            const ipRes = await ipReq.json();
+            userIP = ipRes.ip;
+          } catch (err) {
+            console.warn("IP Fetch Fail");
+          }
 
-                // 4. Siapkan Data
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData);
-                data.ip = userIP;
-                data.system = userSystem;
+          // 3. User Agent
+          const userSystem = navigator.userAgent;
 
-                // 5. Kirim ke Backend
-                const response = await fetch(scriptURL, { 
-                    method: 'POST', 
-                    body: JSON.stringify(data)
-                });
-                
-                const result = await response.json();
+          // 4. Siapkan Data
+          const formData = new FormData(form);
+          const data = Object.fromEntries(formData);
+          data.ip = userIP;
+          data.system = userSystem;
 
-                // 6. Response Handling
-                if(result.result === 'success') {
-                    form.reset(); // Kosongkan form
-                    showMessage(result.message, 'msg-success');
-                } else {
-                    showMessage(result.message, 'msg-error');
-                }
+          // 5. Kirim ke Backend
+          const response = await fetch(scriptURL, {
+            method: "POST",
+            body: JSON.stringify(data),
+          });
 
-            } catch (error) {
-                showMessage('Koneksi Gagal! Cek internet anda.', 'msg-error');
-                console.error('Error!', error);
-            } finally {
-                // Kembalikan Tombol ke Semula
-                btn.disabled = false;
-                btnText.innerHTML = 'SUBMIT SEKARANG';
-                spinner.style.display = 'none';
-            }
-        });
+          const result = await response.json();
 
-        function showMessage(text, className) {
-            msgDiv.innerHTML = text;
-            msgDiv.className = className; // Set warna background merah/hijau
-            msgDiv.style.display = 'block';
-            try { msgDiv.focus(); } catch(e){}
-            // auto-hide after a short interval
-            clearTimeout(window._voucherMessageTimeout);
-            window._voucherMessageTimeout = setTimeout(() => {
-                msgDiv.style.display = 'none';
-                msgDiv.className = '';
-            }, 6000);
+          // 6. Response Handling
+          if (result.result === "success") {
+            form.reset(); // Kosongkan form
+            showMessage(result.message, "msg-success");
+          } else {
+            showMessage(result.message, "msg-error");
+          }
+        } catch (error) {
+          showMessage("Koneksi Gagal! Cek internet anda.", "msg-error");
+          console.error("Error!", error);
+        } finally {
+          // Kembalikan Tombol ke Semula
+          btn.disabled = false;
+          btnText.innerHTML = "SUBMIT SEKARANG";
+          spinner.style.display = "none";
         }
+      });
+
+      function showMessage(text, className) {
+        msgDiv.innerHTML = text;
+        msgDiv.className = className; // Set warna background merah/hijau
+        msgDiv.style.display = "block";
+        try {
+          msgDiv.focus();
+        } catch (e) {}
+        // auto-hide after a short interval
+        clearTimeout(window._voucherMessageTimeout);
+        window._voucherMessageTimeout = setTimeout(() => {
+          msgDiv.style.display = "none";
+          msgDiv.className = "";
+        }, 6000);
+      }
     </script>
-</body>
+  </body>
 </html>
