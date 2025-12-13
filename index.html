@@ -18,14 +18,39 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /*
+         * Responsive background images
+         * Place `desktop.jpg` (for desktop/laptop) and `mobile.jpg` (for phones)
+         * in the project root (same folder as this `index.html`).
+         */
         body {
-            background-color: #0b1e33; /* Warna Background Gelap */
+            /* Default: desktop background */
+            background-image: url('desktop.jpg');
+            background-color: #0b1e33; /* Fallback color */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
         }
+
+        /* Dark overlay to keep form readable over the image */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 10, 20, 0.45);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Ensure the main card sits above the overlay */
+        .card { position: relative; z-index: 1; }
 
         /* --- CARD CONTAINER --- */
         .card {
@@ -191,6 +216,15 @@
         @media (max-width: 480px) {
             .card-header { font-size: 1.1rem; }
             input, select, .btn-submit { font-size: 13px; }
+        }
+
+        /* Use mobile background on typical phone widths */
+        @media (max-width: 767px) {
+            body {
+                background-image: url('mobile.jpg');
+                /* On mobile, avoid fixed background for performance */
+                background-attachment: scroll;
+            }
         }
     </style>
 </head>
