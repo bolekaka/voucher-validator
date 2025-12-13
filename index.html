@@ -16,36 +16,37 @@
             margin: 0;
             padding: 0;
             font-family: 'Poppins', sans-serif;
-            background-color: #0b1e33; /* Fallback color */
+            background-color: #0b1e33; /* Warna dasar jika gambar gagal loading */
             overflow-x: hidden;
         }
 
-        /* --- 2. WALLPAPER LOGIC (CRITICAL) --- */
+        /* --- 2. WALLPAPER LOGIC (FIXED) --- */
         .bg-wallpaper {
             position: fixed;
             top: 0; 
             left: 0; 
             width: 100%; 
             height: 100%;
-            z-index: -1;
+            /* Z-Index 0 agar berada di atas warna body, tapi di bawah konten */
+            z-index: 0; 
         }
 
         /* TAMPILAN MOBILE (HP) */
         .bg-wallpaper {
-            /* Gambar Mobile di atas */
+            /* Pastikan nama file di GitHub adalah mobile.jpg (huruf kecil) */
             background-image: url('mobile.jpg');
             background-repeat: no-repeat;
             background-position: top center;
-            background-size: 100% auto; /* Lebar 100%, Tinggi menyesuaikan gambar */
+            background-size: 100% auto; /* Lebar 100%, Tinggi menyesuaikan */
             
-            /* Warna Biru Solid untuk sisa layar di bawah gambar */
+            /* Warna Biru Solid untuk mengisi sisa layar bawah */
             background-color: #0088ff; 
         }
 
         /* TAMPILAN DESKTOP (Layar > 992px) */
         @media (min-width: 992px) {
             .bg-wallpaper {
-                /* Gambar Desktop Full Cover */
+                /* Pastikan nama file di GitHub adalah desktop.jpg (huruf kecil) */
                 background-image: url('desktop.jpg');
                 background-position: center center;
                 background-size: cover;
@@ -59,47 +60,48 @@
             width: 100%;
             padding: 15px;
             
+            /* Agar konten berada di atas wallpaper */
+            position: relative;
+            z-index: 2; 
+
             /* Flexbox Setup */
             display: flex;
             flex-direction: column;
         }
 
-        /* POSISI MOBILE: Align Top (Supaya bisa didorong margin) */
+        /* POSISI MOBILE: Align Top */
         @media (max-width: 991px) {
             .main-wrapper {
-                justify-content: flex-start; /* Mulai dari atas */
-                align-items: center; /* Tengah secara horizontal */
+                justify-content: flex-start; 
+                align-items: center; 
             }
         }
 
-        /* POSISI DESKTOP: Center All (Tengah total) */
+        /* POSISI DESKTOP: Center All */
         @media (min-width: 992px) {
             .main-wrapper {
-                justify-content: center; /* Tengah Vertikal */
-                align-items: center; /* Tengah Horizontal */
+                justify-content: center; 
+                align-items: center; 
             }
         }
 
         /* --- 4. CARD FORM STYLE --- */
         .custom-card {
             width: 100%;
-            max-width: 400px; /* Lebar maksimal form */
+            max-width: 400px;
             
             background-color: rgba(0, 86, 179, 0.85); /* Biru Transparan */
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             overflow: hidden;
-
-            /* TRANSISI HALUS */
             transition: all 0.3s ease;
         }
 
         /* SPESIFIK MOBILE: Margin Top Besar */
         @media (max-width: 991px) {
             .custom-card {
-                /* Dorong form ke bawah agar tidak menutupi tulisan 'Akhir Tahun' */
-                /* Sesuaikan angka ini jika kurang turun/terlalu turun */
+                /* Dorong form ke bawah agar tidak menutupi tulisan background */
                 margin-top: 240px; 
                 margin-bottom: 50px;
             }
@@ -149,7 +151,7 @@
         .form-control-custom {
             width: 100%;
             height: 42px;
-            padding: 5px 15px 5px 45px; /* Padding kiri untuk ikon */
+            padding: 5px 15px 5px 45px; 
             border-radius: 8px;
             border: 2px solid transparent;
             font-size: 13px;
