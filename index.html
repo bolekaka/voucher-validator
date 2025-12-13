@@ -39,18 +39,8 @@
             padding: 20px;
         }
 
-        /* Dark overlay to keep form readable over the image */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: rgba(3, 10, 20, 0.45);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Ensure the main card sits above the overlay */
-        .card { position: relative; z-index: 1; }
+        /* Note: no global dark overlay — user requested no darkening */
+        .card { position: relative; }
 
         /* --- CARD CONTAINER --- */
         .card {
@@ -84,7 +74,7 @@
         /* --- INPUT GROUP (ICON + INPUT) --- */
         .input-group {
             position: relative;
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* tightened and consistent spacing */
         }
 
         .input-group i {
@@ -144,7 +134,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 10px;
+            margin-top: 8px; /* tighten gap above button */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -190,6 +180,9 @@
             animation: slideDown 0.4s ease-out;
         }
 
+        /* section wrapper for grouped inputs (replaces ad-hoc inline styles) */
+        .input-section { margin-top: 12px; margin-bottom: 6px; }
+
         .msg-success {
             background-color: rgba(144, 255, 144, 0.2);
             border: 1px solid #90ff90;
@@ -218,13 +211,42 @@
             input, select, .btn-submit { font-size: 13px; }
         }
 
-        /* Use mobile background on typical phone widths */
+        /* Use mobile background on typical phone widths and avoid covering image text */
         @media (max-width: 767px) {
             body {
                 background-image: url('mobile.jpg');
+                /* prefer top so any text in the image sits above the form */
+                background-position: top center;
                 /* On mobile, avoid fixed background for performance */
                 background-attachment: scroll;
             }
+            /* push the card down a bit so it doesn't overlap image text near the top
+               and reduce form size for better fit on small screens */
+            .card {
+                margin-top: 8vh; /* naik sedikit supaya tidak sampai area logo di bawah */
+                margin-bottom: 20vh; /* beri ruang bawah untuk logo di background */
+                max-width: 280px; /* lebih kecil untuk muat */
+                width: calc(100% - 32px);
+                transform: scale(0.94);
+                box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+            }
+            .card-body { padding: 12px; }
+            .card-header { padding: 10px 8px; font-size: 0.98rem; }
+            input, select { font-size: 11px; padding: 9px 10px 9px 40px; }
+            .btn-submit { padding: 12px; font-size: 14px; }
+        }
+
+        /* Desktop layout: center the card horizontally (user requested center) */
+        @media (min-width: 1024px) {
+            body {
+                justify-content: center;
+                padding-left: 0;
+                /* keep background centered so wallpaper content stays visible */
+                background-position: center center;
+            }
+            /* slightly lower the card on desktop for better balance */
+            .card { margin-top: 14vh; max-width: 480px; }
+            .card-body { padding: 28px; }
         }
     </style>
 </head>
@@ -275,7 +297,7 @@
                     </select>
                 </div>
 
-                <div style="margin-top: 25px; margin-bottom: 5px;">
+                <div class="input-section">
                     <div class="input-group">
                         <i class="fas fa-ticket-alt"></i>
                         <input type="text" id="kode_voucher" name="kode_voucher" placeholder="Masukkan Kode Voucher" required style="font-weight:bold; letter-spacing: 1px;" autocomplete="off">
