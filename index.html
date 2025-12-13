@@ -1,4 +1,188 @@
-<script>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Peserta Undian</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Reset & Basic Setup */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0b1e33; /* Warna gelap background seperti screenshot */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Container Card */
+        .card {
+            width: 100%;
+            max-width: 400px; /* Lebar maksimal mode desktop */
+            background-color: transparent;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Header Biru */
+        .card-header {
+            background-color: #004ba0; /* Biru Header */
+            color: #f7a01d; /* Warna Orange Teks */
+            text-align: center;
+            padding: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        /* Body Form (Putih/Biru Terang) */
+        .card-body {
+            background-color: #0056b3; /* Biru Background Form */
+            padding: 20px;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        /* Styling Input & Select */
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #333;
+            background-color: #fff;
+            outline: none;
+        }
+
+        /* Placeholder styling */
+        ::placeholder {
+            color: #888;
+        }
+
+        /* Dropdown arrow fix */
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 15px;
+        }
+
+        /* Tombol Submit */
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #fff;
+            color: #0056b3;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #e0e0e0;
+        }
+
+        .btn-submit:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Alert Messages */
+        #message {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #fff;
+            display: none;
+        }
+
+        /* Responsiveness: Presisi Mobile */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+                align-items: flex-start; /* Supaya di HP tidak terlalu tengah jika keyboard muncul */
+                padding-top: 50px;
+            }
+            .card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="card-header">
+            Form Peserta Undian
+        </div>
+        <div class="card-body">
+            <form id="voucherForm">
+                
+                <div class="form-group">
+                    <input type="text" id="nama" name="nama" placeholder="Nama lengkap" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="domisili" name="domisili" placeholder="Domisili" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="number" id="telepon" name="telepon" placeholder="No. Telepon" required>
+                </div>
+
+                <div class="form-group">
+                    <select id="outlet" name="outlet" required>
+                        <option value="" disabled selected>Pilih Outlet</option>
+                        <option value="Bolekaka Jatiwaringin">Bolekaka Jatiwaringin</option>
+                        <option value="Bolekaka Galaxy">Bolekaka Galaxy</option>
+                        <option value="Bolekaka Bintara">Bolekaka Bintara</option>
+                        <option value="Bolekaka Pondok Ungu">Bolekaka Pondok Ungu</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <select id="platform" name="platform" required>
+                        <option value="" disabled selected>Pilih Platform Beli</option>
+                        <option value="Visit Toko">Visit Toko</option>
+                        <option value="Admin WhatsApp">Admin WhatsApp</option>
+                        <option value="Shopee">Shopee</option>
+                        <option value="Tokopedia">Tokopedia</option>
+                        <option value="Tiktok">Tiktok</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="kode_voucher" name="kode_voucher" placeholder="Kode voucher" required>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitBtn">Submit</button>
+                <div id="message"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
         // PASTIKAN URL INI ADALAH URL DEPLOYMENT ANDA
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwhgQUNPqCEDCUdFjn0wGryeZEBnNPEsqn9UaJtpYwKkczWUeKiDJ3lkLtdH2XcXioE/exec'; 
 
@@ -68,3 +252,5 @@
             }
         });
     </script>
+</body>
+</html>
