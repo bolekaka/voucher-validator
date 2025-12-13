@@ -16,61 +16,70 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            background-color: #0b1e33; /* Warna cadangan jika gambar gagal load */
+            background-color: #0b1e33;
         }
 
-        /* --- BACKGROUND WALLPAPER CONFIG --- */
+        /* --- BACKGROUND WALLPAPER --- */
         .bg-wallpaper {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            
-            /* BACKGROUND MOBILE (Default) */
-            /* Pastikan nama file: mobile.jpg */
-            background: url('mobile.jpg') no-repeat top center;
-            background-size: 100% auto; /* Lebar full, tinggi menyesuaikan */
+            transition: background 0.3s ease-in-out;
         }
 
-        /* BACKGROUND DESKTOP (Layar > 992px) */
+        /* TAMPILAN MOBILE (Default) */
+        .bg-wallpaper {
+            /* Pastikan file bernama mobile.jpg */
+            background: url('mobile.jpg') no-repeat top center;
+            background-size: 100% auto; /* Lebar full, tinggi menyesuaikan rasio */
+            background-attachment: scroll;
+            background-color: #0088ff; /* Warna cadangan bawah */
+        }
+
+        /* TAMPILAN DESKTOP (Layar > 992px) */
         @media (min-width: 992px) {
             .bg-wallpaper {
-                /* Pastikan nama file: desktop.jpg */
+                /* Pastikan file bernama desktop.jpg */
                 background: url('desktop.jpg') no-repeat center center;
                 background-size: cover; /* Full layar */
+                background-attachment: fixed;
             }
         }
 
-        /* --- CONTAINER --- */
+        /* --- CONTAINER UTAMA --- */
         .main-container {
             min-height: 100vh;
             display: flex;
             justify-content: center;
             padding: 15px;
+            width: 100%;
         }
 
         /* --- CUSTOM CARD (FORM) --- */
         .custom-card {
             width: 100%;
-            /* Warna Biru Transparan (RGBA) */
+            /* Warna Biru Transparan (Sesuai Request) */
             background-color: rgba(0, 86, 179, 0.85); 
             border-radius: 15px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
             
-            /* Animasi masuk */
-            animation: fadeIn 0.8s ease-out;
+            /* Posisi Default (Mobile) agar turun ke bawah */
+            margin-top: 150px; /* TURUN 150px SUPAYA TIDAK NUTUP TULISAN ATAS */
+            margin-bottom: 50px;
         }
 
         /* HEADER */
         .card-header-custom {
-            background-color: rgba(0, 75, 160, 0.9); /* Header sedikit lebih gelap */
-            color: #f7a01d; /* Orange */
+            background-color: rgba(0, 75, 160, 0.95);
+            color: #f7a01d; /* Orange Emas */
             text-align: center;
             padding: 15px;
             font-weight: 700;
-            font-size: 18px;
-            letter-spacing: 1px;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
@@ -79,10 +88,10 @@
             padding: 20px;
         }
 
-        /* --- INPUT STYLING (Desain Lama Dipertahankan) --- */
+        /* --- INPUT STYLING --- */
         .input-group-custom {
             position: relative;
-            margin-bottom: 12px; /* Jarak antar input */
+            margin-bottom: 10px; /* Jarak antar input diperapat */
         }
 
         .input-group-custom i {
@@ -91,26 +100,27 @@
             top: 50%;
             transform: translateY(-50%);
             color: #004ba0;
-            font-size: 16px;
+            font-size: 15px;
             z-index: 2;
         }
 
         .form-control-custom {
             width: 100%;
-            padding: 12px 15px 12px 45px; /* Padding kiri untuk ikon */
+            padding: 10px 15px 10px 45px; /* Padding kiri untuk ikon */
             border: 2px solid transparent;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px; /* Ukuran font input pas */
             color: #333;
             background-color: #fff;
             outline: none;
             font-weight: 500;
             transition: 0.3s;
+            height: 42px; /* Tinggi fix agar rapi */
         }
 
         .form-control-custom:focus {
             border-color: #f7a01d;
-            box-shadow: 0 0 10px rgba(247, 160, 29, 0.3);
+            box-shadow: 0 0 10px rgba(247, 160, 29, 0.4);
         }
 
         /* Select Arrow Custom */
@@ -118,96 +128,62 @@
             appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23004ba0'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
             background-repeat: no-repeat;
-            background-position: right 15px center;
-            background-size: 18px;
+            background-position: right 12px center;
+            background-size: 16px;
         }
 
         /* --- BUTTON --- */
         .btn-submit {
             width: 100%;
             padding: 12px;
-            background-color: #fff;
-            color: #0056b3;
-            font-weight: 700;
-            font-size: 16px;
+            background-color: #fff; /* Tombol Putih */
+            color: #004ba0; /* Teks Biru */
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: uppercase;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             margin-top: 10px;
             transition: 0.2s;
             display: flex; justify-content: center; align-items: center; gap: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
-        .btn-submit:active { transform: scale(0.98); background-color: #f0f0f0; }
-        .btn-submit:disabled { background-color: #ccc; color: #888; }
+        .btn-submit:hover { background-color: #f0f0f0; }
+        .btn-submit:active { transform: scale(0.98); }
 
         /* --- SPINNER & ALERT --- */
         .spinner {
-            width: 18px; height: 18px; border: 3px solid #ccc; border-top: 3px solid #0056b3;
+            width: 16px; height: 16px; border: 3px solid #ccc; border-top: 3px solid #0056b3;
             border-radius: 50%; animation: spin 1s linear infinite; display: none;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         #message {
-            margin-top: 15px; padding: 10px; border-radius: 6px; text-align: center;
-            font-size: 13px; font-weight: 600; display: none;
+            margin-top: 10px; padding: 10px; border-radius: 6px; text-align: center;
+            font-size: 12px; font-weight: 600; display: none;
         }
-        .msg-success { background: rgba(144, 255, 144, 0.9); color: #006d00; }
-        .msg-error { background: rgba(255, 144, 144, 0.9); color: #8a0000; }
+        .msg-success { background: rgba(144, 255, 144, 0.95); color: #006d00; }
+        .msg-error { background: rgba(255, 144, 144, 0.95); color: #8a0000; }
 
-        /* --- RESPONSIVE ADJUSTMENTS (MOBILE KHUSUS) --- */
-        /* Untuk layar HP (di bawah 576px) */
-        @media (max-width: 576px) {
-            .main-container {
-                align-items: flex-start; /* Form mulai dari atas */
-                padding-top: 135px; /* JARAK ATAS: Supaya tidak menutupi tulisan 'Banjir Hadiah' */
-            }
+        /* --- RESPONSIVE LOGIC --- */
 
-            .custom-card {
-                /* Form lebih kecil/ramping */
-                border-radius: 12px;
-            }
-
-            .card-header-custom {
-                padding: 12px;
-                font-size: 16px; /* Font header lebih kecil */
-            }
-
-            .card-body-custom {
-                padding: 15px; /* Padding dalam lebih tipis */
-            }
-
-            .input-group-custom {
-                margin-bottom: 10px; /* Jarak antar input lebih rapat */
-            }
-
-            .form-control-custom {
-                padding: 10px 10px 10px 40px; /* Input lebih pendek */
-                font-size: 13px; /* Font input lebih kecil */
-            }
-            
-            .input-group-custom i {
-                font-size: 14px; /* Ikon lebih kecil */
-                left: 12px;
-            }
-
-            .btn-submit {
-                padding: 10px; /* Tombol lebih ramping */
-                font-size: 14px;
-            }
-        }
-
-        /* Untuk Desktop (Tengah Layar) */
+        /* DESKTOP (Layar Besar) */
         @media (min-width: 992px) {
             .main-container {
                 align-items: center; /* Tengah vertikal */
             }
             .custom-card {
-                max-width: 400px; /* Lebar maksimal di desktop */
+                max-width: 380px; /* Lebar ideal desktop */
+                margin-top: 0; /* Reset margin mobile */
+                margin-bottom: 0;
+            }
+            .card-header-custom {
+                font-size: 18px;
+                padding: 20px;
             }
         }
         
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
     </style>
 </head>
 <body>
@@ -238,7 +214,7 @@
 
                         <div class="input-group-custom">
                             <i class="fas fa-phone"></i>
-                            <input type="number" class="form-control-custom" id="telepon" name="telepon" placeholder="No. Telepon / WhatsApp" required autocomplete="off">
+                            <input type="tel" class="form-control-custom" id="telepon" name="telepon" placeholder="No. Telepon / WhatsApp" required autocomplete="off">
                         </div>
 
                         <div class="input-group-custom">
@@ -266,7 +242,7 @@
 
                         <div class="input-group-custom">
                             <i class="fas fa-ticket-alt"></i>
-                            <input type="text" class="form-control-custom" id="kode_voucher" name="kode_voucher" placeholder="Masukkan Kode Voucher" required style="font-weight:bold; letter-spacing: 1px;" autocomplete="off">
+                            <input type="text" class="form-control-custom" id="kode_voucher" name="kode_voucher" placeholder="Masukkan Kode Voucher" required style="font-weight:bold; letter-spacing: 0.5px;" autocomplete="off">
                         </div>
 
                         <button type="submit" class="btn-submit" id="submitBtn">
@@ -285,6 +261,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // URL Script Google Apps Script Anda
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwhgQUNPqCEDCUdFjn0wGryeZEBnNPEsqn9UaJtpYwKkczWUeKiDJ3lkLtdH2XcXioE/exec'; 
 
         const form = document.forms['voucherForm'];
@@ -295,8 +272,9 @@
 
         form.addEventListener('submit', async e => {
             e.preventDefault();
+            
             btn.disabled = true;
-            btnText.innerHTML = 'Memproses...';
+            btnText.innerHTML = 'MEMPROSES...';
             spinner.style.display = 'block';
             msgDiv.style.display = 'none';
             msgDiv.className = '';
@@ -323,13 +301,13 @@
 
                 if(result.result === 'success') {
                     form.reset();
-                    showMessage(result.message, 'msg-success');
+                    showMessage('BERHASIL! ' + result.message, 'msg-success');
                 } else {
-                    showMessage(result.message, 'msg-error');
+                    showMessage('GAGAL! ' + result.message, 'msg-error');
                 }
 
             } catch (error) {
-                showMessage('Koneksi Gagal!', 'msg-error');
+                showMessage('Koneksi Gagal! Silakan coba lagi.', 'msg-error');
             } finally {
                 btn.disabled = false;
                 btnText.innerHTML = 'SUBMIT SEKARANG';
