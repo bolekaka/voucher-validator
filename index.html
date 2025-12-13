@@ -45,8 +45,9 @@
         /* --- CARD CONTAINER --- */
         .card {
             width: 100%;
-            max-width: 420px; /* Sedikit lebih lebar agar lega */
-            background-color: transparent;
+            max-width: 560px; /* Reduce desktop width per request */
+            /* Desktop card more transparent to reveal more wallpaper */
+            background-color: rgba(0,86,179,0.60);
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 8px 25px rgba(0,0,0,0.4);
@@ -55,20 +56,25 @@
 
         /* --- HEADER --- */
         .card-header {
-            background-color: #004ba0; /* Warna Biru Header */
+            /* Desktop: more transparent header for wallpaper visibility */
+            background-color: rgba(0,75,160,0.65);
             color: #f7a01d; /* Warna Orange Teks */
             text-align: center;
             padding: 20px 15px;
             font-weight: 600;
             font-size: 1.2rem;
             letter-spacing: 0.5px;
-            border-bottom: 2px solid rgba(0,0,0,0.1);
+            border-bottom: 2px solid rgba(0,0,0,0.06);
+            backdrop-filter: saturate(110%) blur(3px);
+            overflow: hidden;
         }
 
         /* --- BODY FORM --- */
         .card-body {
-            background-color: #0056b3; /* Warna Biru Form */
+            /* Desktop: more transparent body to reveal wallpaper behind */
+            background-color: rgba(0,86,179,0.66);
             padding: 25px;
+            backdrop-filter: saturate(110%) blur(2px);
         }
 
         /* --- INPUT GROUP (ICON + INPUT) --- */
@@ -87,6 +93,8 @@
             pointer-events: none; /* Supaya ikon tembus klik */
         }
 
+        .card-title { font-size: 1.6rem; margin: 0; font-weight: 900; letter-spacing: 0.6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
         input, select {
             width: 100%;
             padding: 14px 15px 14px 45px; /* Padding kiri besar untuk ikon */
@@ -98,6 +106,12 @@
             outline: none;
             transition: all 0.3s ease;
             font-weight: 500;
+        }
+
+        /* Voucher input specific styling: remove extra letter spacing */
+        .voucher-input {
+            font-weight: 700;
+            letter-spacing: normal; /* ensure letters are tight and consistent */
         }
 
         /* Efek saat diklik (Focus) */
@@ -141,7 +155,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 8px; /* tighten gap above button */
+            margin-top: 0; /* rely on input-group bottom margin for spacing */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -177,7 +191,7 @@
 
         /* --- ALERT MESSAGES --- */
         #message {
-            margin-top: 20px;
+            margin-top: 12px;
             padding: 12px;
             border-radius: 6px;
             text-align: center;
@@ -187,20 +201,26 @@
             animation: slideDown 0.4s ease-out;
         }
 
-        /* section wrapper for grouped inputs (replaces ad-hoc inline styles) */
-        .input-section { margin-top: 12px; margin-bottom: 6px; }
+        /* section wrapper for grouped inputs (replaces ad-hoc inline styles)
+           Keep it neutral so spacing is controlled only by `.input-group` */
+        .input-section { margin: 0; padding: 0; }
+
+        /* Ensure spacing is driven by input-group only and last input has consistent gap */
+        .card-body .input-group { margin-bottom: 10px; }
+        .card-body .input-group:last-of-type { margin-bottom: 10px; }
 
         .msg-success {
-            background-color: rgba(144, 255, 144, 0.2);
-            border: 1px solid #90ff90;
-            color: #daffda;
+            /* success matches the blue theme */
+            background-color: rgba(0, 86, 179, 0.12);
+            border: 1px solid #0056b3;
+            color: #004ba0;
         }
 
         .msg-error {
-            /* change error/alert to yellow theme matching site colors */
+            /* error uses the yellow/orange theme */
             background-color: rgba(247, 160, 29, 0.16);
             border: 1px solid #f7a01d;
-            color: #3b2500;
+            color: #f7a01d;
         }
 
         /* Animation Keyframes */
@@ -233,14 +253,17 @@
             .card {
                 margin-top: 12vh; /* turun sedikit lagi sesuai permintaan */
                 margin-bottom: 20vh; /* beri ruang bawah untuk logo di background */
-                max-width: 280px; /* lebih kecil untuk muat */
+                max-width: 320px; /* lebih kecil untuk muat, tapi agak lebih lebar untuk kenyamanan */
                 width: calc(100% - 32px);
-                transform: scale(0.94);
+                transform: none;
                 box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+                /* show background wallpaper behind card on mobile */
+                background-color: transparent;
             }
-            .card-body { padding: 12px; }
-            .card-header { padding: 10px 8px; font-size: 0.98rem; }
+            .card-body { padding: 12px; background-color: rgba(0,86,179,0.66); }
+            .card-header { padding: 10px 8px; font-size: 0.98rem; background-color: rgba(0,75,160,0.6); }
             input, select { font-size: 11px; padding: 9px 10px 9px 40px; }
+            .card-title { font-size: 1.05rem; }
             .btn-submit { padding: 12px; font-size: 14px; }
         }
 
@@ -253,8 +276,13 @@
                 background-position: center center;
             }
             /* slightly lower the card on desktop for better balance */
-            .card { margin-top: 18vh; max-width: 480px; }
-            .card-body { padding: 28px; }
+            /* keep a consistent max width on desktop */
+            .card { margin-top: 18vh; max-width: 560px; background-color: rgba(0,86,179,0.35); }
+            .card-body { padding: 20px; background-color: rgba(0,86,179,0.35); }
+            /* Desktop header: more transparent and add white separator line */
+            .card-header { background-color: rgba(0,75,160,0.55); border-bottom: 2px solid rgba(255,255,255,0.18); }
+            /* slightly larger inputs on desktop for comfortable reading */
+            .card-body input, .card-body select { font-size: 15px; padding: 14px 16px 14px 45px; }
         }
     </style>
 </head>
@@ -262,29 +290,29 @@
 
     <div class="card">
         <div class="card-header">
-            FORM PESERTA UNDIAN
+            <h1 class="card-title">FORM PESERTA UNDIAN</h1>
         </div>
         <div class="card-body">
             <form id="voucherForm" autocomplete="off">
                 
                 <div class="input-group">
                     <i class="fas fa-user"></i>
-                    <input type="text" id="nama" name="nama" placeholder="Nama Lengkap" required autocomplete="off">
+                    <input type="text" id="nama" name="nama" placeholder="Nama Lengkap" required autocomplete="name" aria-label="Nama Lengkap">
                 </div>
 
                 <div class="input-group">
                     <i class="fas fa-map-marker-alt"></i>
-                    <input type="text" id="domisili" name="domisili" placeholder="Domisili / Kota" required autocomplete="off">
+                    <input type="text" id="domisili" name="domisili" placeholder="Domisili / Kota" required autocomplete="address-level2" aria-label="Domisili / Kota">
                 </div>
 
                 <div class="input-group">
                     <i class="fas fa-phone"></i>
-                    <input type="tel" id="telepon" name="telepon" placeholder="No. Telepon / WhatsApp" required autocomplete="off">
+                    <input type="tel" id="telepon" name="telepon" placeholder="No. Telepon / WhatsApp" required autocomplete="tel" inputmode="tel">
                 </div>
 
                 <div class="input-group">
                     <i class="fas fa-store"></i>
-                    <select id="outlet" name="outlet" required>
+                    <select id="outlet" name="outlet" required aria-label="Pilih Outlet">
                         <option value="" disabled selected>Pilih Outlet</option>
                         <option value="Bolekaka Jatiwaringin">Bolekaka Jatiwaringin</option>
                         <option value="Bolekaka Galaxy">Bolekaka Galaxy</option>
@@ -295,7 +323,7 @@
 
                 <div class="input-group">
                     <i class="fas fa-shopping-bag"></i>
-                    <select id="platform" name="platform" required>
+                    <select id="platform" name="platform" required aria-label="Pilih Platform Beli">
                         <option value="" disabled selected>Pilih Platform Beli</option>
                         <option value="Visit Toko">Visit Toko</option>
                         <option value="Admin WhatsApp">Admin WhatsApp</option>
@@ -308,7 +336,7 @@
                 <div class="input-section">
                     <div class="input-group">
                         <i class="fas fa-ticket-alt"></i>
-                        <input type="text" id="kode_voucher" name="kode_voucher" placeholder="Masukkan Kode Voucher" required style="font-weight:bold; letter-spacing: 1px;" autocomplete="off">
+                        <input class="voucher-input" type="text" id="kode_voucher" name="kode_voucher" placeholder="Masukkan Kode Voucher" required autocomplete="off" aria-label="Kode Voucher">
                     </div>
                 </div>
 
@@ -317,12 +345,30 @@
                     <span id="btnText">SUBMIT SEKARANG</span>
                 </button>
                 
-                <div id="message"></div>
+                <div id="message" role="status" aria-live="polite" tabindex="-1"></div>
             </form>
         </div>
     </div>
 
     <script>
+        // Ensure correct background image is used on mobile devices
+        function applyResponsiveBackground() {
+            const isMobile = window.innerWidth <= 767;
+            if (isMobile) {
+                document.body.style.backgroundImage = "url('mobile.jpg')";
+                document.body.style.backgroundPosition = 'top center';
+                document.body.style.backgroundAttachment = 'scroll';
+            } else {
+                document.body.style.backgroundImage = "url('desktop.jpg')";
+                document.body.style.backgroundPosition = 'center center';
+                document.body.style.backgroundAttachment = 'fixed';
+            }
+        }
+        // Run on load and resize/orientation change
+        window.addEventListener('load', applyResponsiveBackground);
+        window.addEventListener('resize', applyResponsiveBackground);
+        window.addEventListener('orientationchange', applyResponsiveBackground);
+
         // --- PASTE URL SCRIPT ANDA DI BAWAH INI ---
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwhgQUNPqCEDCUdFjn0wGryeZEBnNPEsqn9UaJtpYwKkczWUeKiDJ3lkLtdH2XcXioE/exec'; 
 
@@ -391,6 +437,13 @@
             msgDiv.innerHTML = text;
             msgDiv.className = className; // Set warna background merah/hijau
             msgDiv.style.display = 'block';
+            try { msgDiv.focus(); } catch(e){}
+            // auto-hide after a short interval
+            clearTimeout(window._voucherMessageTimeout);
+            window._voucherMessageTimeout = setTimeout(() => {
+                msgDiv.style.display = 'none';
+                msgDiv.className = '';
+            }, 6000);
         }
     </script>
 </body>
