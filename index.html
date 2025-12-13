@@ -10,124 +10,122 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- GLOBAL STYLE --- */
+        /* --- GLOBAL --- */
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #0b1e33;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Mencegah geser kanan-kiri */
         }
 
         /* --- BACKGROUND SETUP --- */
         .main-container {
             min-height: 100vh;
+            width: 100%;
             display: flex;
-            align-items: center; /* Vertikal: Tengah */
-            justify-content: center; /* Horizontal: Tengah */
-            padding: 10px;
-            
-            /* MOBILE BACKGROUND (Default / Potret) */
-            /* Pastikan nama file sesuai dengan gambar potret anda */
-            background: url('LP Mobile.jpg') no-repeat center top; 
-            background-size: cover;
+            justify-content: center;
+            /* Default Mobile Background */
+            background: url('LP Mobile.jpg') no-repeat top center; 
+            background-size: 100% auto; /* Lebar 100%, tinggi otomatis sesuai rasio */
+            background-attachment: fixed; /* Background diam saat scroll */
+            padding: 15px;
         }
 
         /* DESKTOP BACKGROUND (> 992px) */
         @media (min-width: 992px) {
             .main-container {
-                /* Pastikan nama file sesuai dengan gambar landscape anda */
                 background: url('LP.jpg') no-repeat center center;
                 background-size: cover;
+                align-items: center; /* Tengah vertikal kalau di desktop */
             }
         }
 
-        /* --- CARD STYLE (SUPER COMPACT) --- */
+        /* --- CARD STYLE (VERSI MINI / COMPACT) --- */
         .custom-card {
             width: 100%;
-            max-width: 320px; /* Lebar diperkecil agar tidak menutupi logo samping di desktop */
-            background: rgba(0, 86, 179, 0.85); /* Lebih transparan (0.85) agar background terlihat */
+            max-width: 330px; /* Lebar maksimal diperkecil */
+            background: rgba(0, 86, 179, 0.9); /* Biru Transparan */
             border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             overflow: hidden;
             position: relative;
             
-            /* LOGIKA POSISI AGAR TIDAK MENUTUPI TEKS ATAS */
-            margin-top: 15vh; /* Turun 15% dari atas layar agar tidak kena tulisan 'BANJIR HADIAH' */
+            /* PENTING: Jarak dari atas supaya tidak menutupi tulisan background */
+            margin-top: 130px; 
+            margin-bottom: 50px; /* Jarak bawah agar tidak nempel logo */
         }
         
+        /* Jika di layar Desktop, margin reset jadi tengah */
         @media (min-width: 992px) {
              .custom-card {
-                margin-top: 10vh; /* Penyesuaian desktop */
+                margin-top: 0;
+                margin-bottom: 0;
              }
         }
 
-        /* Garis Hiasan Atas */
+        /* Hiasan Garis Atas */
         .custom-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
             background: linear-gradient(90deg, #f7a01d, #ffc107); z-index: 10;
         }
 
         .card-header-custom {
             background-color: #004ba0;
-            padding: 10px; /* Header lebih tipis */
+            padding: 8px; /* Header tipis */
             text-align: center;
         }
 
         .card-header-custom h5 {
             color: #f7a01d; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 1px; margin-bottom: 0; font-size: 14px; /* Font header kecil */
-        }
-        
-        .card-header-custom p {
-            display: none; /* Sembunyikan sub-judul agar hemat tempat */
+            letter-spacing: 0.5px; margin-bottom: 0; font-size: 13px; /* Font judul kecil */
         }
 
         /* --- FORM INPUT MINI --- */
         .input-box {
             position: relative;
-            margin-bottom: 8px; /* Jarak antar input sangat rapat */
+            margin-bottom: 6px; /* Jarak antar input sangat rapat */
             background: #fff;
             border-radius: 5px;
-            height: 35px; /* TINGGI INPUT DI PANGKAS JADI 35PX */
+            height: 35px; /* TINGGI INPUT HANYA 35PX */
         }
 
         .input-box i {
             position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
-            color: #004ba0; font-size: 14px; z-index: 1;
+            color: #004ba0; font-size: 13px; z-index: 1;
         }
 
         .input-box input, .input-box select {
             width: 100%; height: 100%; background: transparent;
             border: 1px solid transparent; border-radius: 5px; outline: none;
-            padding: 0 10px 0 35px; /* Padding kiri disesuaikan */
-            font-size: 11px; /* Font input kecil */
+            padding: 0 10px 0 35px;
+            font-size: 11px; /* Font isi form kecil */
             color: #333; font-weight: 500; z-index: 2; position: relative;
         }
 
+        /* Label / Placeholder */
         .input-box label {
             position: absolute; left: 35px; top: 50%; transform: translateY(-50%);
             color: #888; font-size: 11px; pointer-events: none; transition: 0.3s; z-index: 0;
         }
 
-        /* Floating Label Logic */
-        .input-box input:focus, .input-box input:valid,
-        .input-box select:focus, .input-box select:valid {
-            border-color: #f7a01d;
-        }
+        /* Efek Floating Label */
         .input-box input:focus ~ label, .input-box input:valid ~ label,
         .input-box select:focus ~ label, .input-box select:valid ~ label {
-            display: none; /* Hilangkan label saat mengetik agar tidak sempit */
+            display: none; /* Label hilang saat diketik agar tidak sempit */
+        }
+        
+        .input-box input:focus, .input-box select:focus {
+            border-color: #f7a01d;
         }
 
-        /* Custom Select Arrow */
         select {
             appearance: none; -webkit-appearance: none;
             background: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23004ba0'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") no-repeat right 8px center;
-            background-size: 14px;
+            background-size: 12px;
         }
 
         /* --- BUTTON --- */
         .btn-submit-custom {
-            width: 100%; height: 38px; /* Tombol tipis */
+            width: 100%; height: 38px;
             background: #f7a01d; color: #0b1e33; border: none; border-radius: 5px;
             font-size: 12px; font-weight: 700; cursor: pointer;
             box-shadow: 0 2px 5px rgba(247, 160, 29, 0.3);
@@ -135,7 +133,7 @@
         }
         .btn-submit-custom:hover { background: #e39016; }
 
-        /* Spinner */
+        /* Spinner & Alert */
         .spinner {
             width: 14px; height: 14px;
             border: 2px solid rgba(0,0,0,0.1); border-top: 2px solid #0b1e33;
@@ -143,25 +141,24 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* Alert */
         #message {
-            margin-top: 8px; padding: 8px; border-radius: 4px; font-size: 10px;
-            text-align: center; display: none; line-height: 1.2;
+            margin-top: 5px; padding: 5px; border-radius: 4px; font-size: 10px;
+            text-align: center; display: none;
         }
-        .success { background: #e6fffa; color: #006d5b; border-left: 3px solid #006d5b; }
-        .error { background: #fff5f5; color: #c53030; border-left: 3px solid #c53030; }
+        .success { background: #e6fffa; color: #006d5b; }
+        .error { background: #fff5f5; color: #c53030; }
     </style>
 </head>
 <body>
 
-    <div class="container-fluid main-container">
+    <div class="main-container">
         
-        <div class="card custom-card">
+        <div class="custom-card">
             <div class="card-header-custom">
-                <h5>Peserta Undian</h5>
+                <h5>PESERTA UNDIAN</h5>
             </div>
             
-            <div class="card-body p-3"> <form id="voucherForm" autocomplete="off">
+            <div class="p-3"> <form id="voucherForm" autocomplete="off">
                     
                     <div class="input-box">
                         <i class="fas fa-user"></i>
@@ -208,7 +205,7 @@
 
                     <div class="input-box mt-2 mb-2" style="border: 1px dashed #f7a01d;">
                         <i class="fas fa-ticket-alt" style="color: #f7a01d;"></i>
-                        <input type="text" id="kode_voucher" name="kode_voucher" required autocomplete="off" style="font-weight: bold; letter-spacing: 1px; color: #004ba0;">
+                        <input type="text" id="kode_voucher" name="kode_voucher" required autocomplete="off" style="font-weight: bold; letter-spacing: 0.5px; color: #004ba0;">
                         <label style="color: #f7a01d; background: #fff; padding: 0 4px;">KODE VOUCHER</label>
                     </div>
 
@@ -228,7 +225,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // --- URL SCRIPT ANDA ---
+        // --- URL GOOGLE SCRIPT ---
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwhgQUNPqCEDCUdFjn0wGryeZEBnNPEsqn9UaJtpYwKkczWUeKiDJ3lkLtdH2XcXioE/exec'; 
 
         const form = document.forms['voucherForm'];
