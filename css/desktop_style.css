@@ -221,13 +221,13 @@ input[type="number"] {
 
 /* Warna-warna MacOS */
 .yellow {
-  background-color: #ffbd2e;
+  background-color: #c58b0e;
 } /* Minimize */
 .green {
-  background-color: #28c940;
+  background-color: #068c1a;
 } /* Expand */
 .red {
-  background-color: #ff5f57;
+  background-color: #dc2920;
 } /* Close */
 
 .alert {
