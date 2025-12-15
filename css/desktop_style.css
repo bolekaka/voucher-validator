@@ -154,7 +154,7 @@ button:hover {
 
 /* Warna Text (Tetap sama) */
 .msg-success {
-  color: #0a4a0a;
+  color: black;
 }
 .msg-error {
   color: #ff3300;
@@ -233,6 +233,7 @@ input[type="number"] {
 .alert {
   font-size: 14px;
 }
+
 
 
 
