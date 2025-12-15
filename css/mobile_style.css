@@ -62,4 +62,11 @@ select {
   font-size: 10px;
 }
 
+.mac-buttons {
+  gap: 4px; /* Jarak antar bulatan */
+}
 
+.dot {
+  width: 8px;
+  height: 8px;
+}
