@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Peserta Undian</title>
+    <link rel="icon" type="image/png" href="img/ico.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/desktop_style.css" />
+    <link
+      rel="stylesheet"
+      href="css/tab_style.css"
+      media="(max-width: 1024px)"
+    />
+    <link
+      rel="stylesheet"
+      href="css/mobile_style.css"
+      media="(max-width: 768px)"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h2>FORM PESERTA UNDIAN</h2>
+          <div class="mac-buttons">
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+            <div class="dot red"></div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <form id="voucherForm">
+            <div class="form-group">
+              <i class="fas fa-user input-icon"></i>
+              <input
+                type="text"
+                id="nama"
+                placeholder="Nama Lengkap"
+                required
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="form-group">
+              <i class="fas fa-map-marker-alt input-icon"></i>
+              <input
+                type="text"
+                id="domisili"
+                placeholder="Domisili"
+                required
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="form-group">
+              <i class="fas fa-phone input-icon"></i>
+              <input
+                type="number"
+                id="telepon"
+                placeholder="No. Telepon"
+                required
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="form-group">
+              <i class="fas fa-store input-icon"></i>
+              <select id="outlet" required class="empty">
+                <option value="" disabled selected hidden>Pilih Outlet</option>
+                <option value="Bolekaka Jatiwaringin">
+                  Bolekaka Jatiwaringin
+                </option>
+                <option value="Bolekaka Galaxy">Bolekaka Galaxy</option>
+                <option value="Bolekaka Bintara">Bolekaka Bintara</option>
+                <option value="Bolekaka Pondok Ungu">
+                  Bolekaka Pondok Ungu
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <i class="fas fa-shopping-bag input-icon"></i>
+              <select id="platform" required class="empty">
+                <option value="" disabled selected hidden>
+                  Pilih Platform Beli
+                </option>
+                <option value="Visit Toko">Visit Toko</option>
+                <option value="Admin WhatsApp">Admin WhatsApp</option>
+                <option value="Shopee">Shopee</option>
+                <option value="Tokopedia/Tiktok">Tokopedia/Tiktok</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <i class="fas fa-ticket-alt input-icon"></i>
+              <input
+                type="text"
+                id="kode_voucher"
+                placeholder="Kode Voucher"
+                required
+                autocomplete="off"
+              />
+            </div>
+
+            <button type="submit" id="submitBtn">KIRIM DATA</button>
+
+            <div
+              id="loading"
+              style="
+                display: none;
+                margin-top: 10px;
+                color: black;
+                text-align: center;
+              "
+              class="alert"
+            >
+              Mengirim data...
+            </div>
+
+            <div id="responseMessage"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/apps_script.js"></script>
+    <script src="js/web_script.js"></script>
+  </body>
+</html>

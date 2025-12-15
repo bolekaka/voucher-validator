@@ -1,0 +1,63 @@
+/*
+  Tujuan file    : Styling Responsif Mobile
+  Bagian utama   : Override background & margin
+  Author         : Gemini AI
+  Last modified  : 2023-10-27
+*/
+
+body {
+  /* Background Mobile [cite: 98] */
+  background-image: url("../img/mobile.jpg");
+  align-items: flex-start; /* Form mulai dari atas di mobile */
+  padding-top: 20px;
+}
+
+.card {
+  width: 250px;
+  margin-top: 220px;
+}
+
+.card-header {
+  padding: 10px;
+}
+
+.card-header h2 {
+  font-size: 0.6rem;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+input,
+select {
+  padding: 10px;
+  font-size: 10px;
+}
+
+/* Button lebih besar untuk touch target */
+button {
+  padding: 10px;
+  font-size: 10px;
+}
+
+#responseMessage {
+  font-size: 10px;
+}
+
+.form-group {
+  margin-bottom: 5px;
+}
+
+.input-icon {
+  font-size: 12px;
+}
+
+input,
+select {
+  padding-left: 35px;
+}
+
+.alert {
+  font-size: 10px;
+}

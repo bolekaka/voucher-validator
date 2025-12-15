@@ -1,0 +1,235 @@
+/*
+  Tujuan file    : Styling utama Desktop & Base Style
+  Bagian utama   : Layout Flexbox, Warna, Typography
+  Author         : Gemini AI
+  Last modified  : 2023-10-27
+*/
+
+/* Reset & Base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  /* Background Desktop [cite: 96] */
+  /* Gradient Hitam 60% + Gambar Desktop */
+  background-image: url("../img/desktop.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 120vh;
+  display: flex;
+  justify-content: center; /* Center Horizontal */
+  align-items: center; /* Center Vertical [cite: 104] */
+  overflow: hidden;
+}
+
+/* Card Styling */
+.card {
+  width: 400px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  /* Background Transparan + Blur [cite: 105] */
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Head Card: Biru Tua [cite: 107] */
+.card-header {
+  background-color: rgba(0, 107, 237, 0.8);
+  padding: 15px;
+  text-align: center;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-header h2 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Body Card: Biru Muda [cite: 108] */
+.card-body {
+  background-color: rgba(0, 107, 237, 0.2);
+  padding: 15px;
+  opacity: 0.95; /* Sedikit transparansi agar blur terlihat */
+}
+
+/* Title: Orange [cite: 109] */
+.form-title {
+  color: #ff6600;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+/* Input & Dropdown Styling [cite: 114-121] */
+input,
+select {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 15px;
+  background-color: rgb(255, 255, 255, 0.8); /* [cite: 115] */
+  font-size: 14px;
+  outline: none;
+  color: black; /* Default text black [cite: 117] */
+}
+
+/* Placeholder Styling untuk Input */
+::placeholder {
+  color: #555; /* Abu-abu [cite: 116] */
+}
+
+/* REVISI: Menghilangkan panah dropdown default browser */
+select {
+  -webkit-appearance: none; /* Chrome, Safari */
+  -moz-appearance: none; /* Firefox */
+  appearance: none; /* Standard */
+  cursor: pointer; /* Mengubah kursor jadi telunjuk */
+}
+
+/* Opsi tambahan (Opsional): Agar teks tetap rapi tanpa panah */
+select::-ms-expand {
+  display: none; /* Khusus Internet Explorer/Edge lama */
+}
+
+/* Class 'empty' ditambahkan via JS jika value kosong */
+select.empty {
+  color: #555; /* Placeholder Abu-abu [cite: 120] */
+}
+
+/* Button Submit [cite: 110] */
+button {
+  width: 100%;
+  padding: 15px;
+  background-color: rgb(255, 255, 255, 0.9);
+  color: #222;
+  border: none;
+  border-radius: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background-color: #ff6600;
+  color: white;
+}
+
+/* Container pesan default: Kosong & Tidak terlihat */
+#responseMessage {
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+
+  /* PENTING: Agar tidak makan tempat saat kosong */
+  height: 0;
+  margin-top: 0;
+  overflow: hidden; /* Sembunyikan konten jika ada sisa */
+  opacity: 0;
+
+  /* Animasi halus saat resize */
+  transition: all 0.3s ease-in-out;
+}
+
+/* State ketika pesan muncul (Hijau/Merah) */
+#responseMessage.msg-success,
+#responseMessage.msg-error {
+  height: auto; /* Tinggi menyesuaikan teks */
+  margin-top: 15px; /* Beri jarak dari tombol */
+  opacity: 1; /* Tampilkan teks */
+  padding-bottom: 5px;
+}
+
+/* Warna Text (Tetap sama) */
+.msg-success {
+  color: #00cc00;
+}
+.msg-error {
+  color: #ff3300;
+}
+
+/* REVISI: Styling Container Input agar Ikon bisa diatur posisinya */
+.form-group {
+  position: relative; /* Penting! Menjadi acuan posisi ikon */
+  margin-bottom: 10px;
+}
+
+/* REVISI: Styling Ikon */
+.input-icon {
+  position: absolute;
+  left: 15px; /* Jarak dari kiri */
+  top: 50%; /* Posisi tengah vertikal */
+  transform: translateY(-50%); /* Koreksi agar benar-benar di tengah */
+  color: rgb(0, 107, 237); /* Warna ikon abu-abu (seperti placeholder) */
+  font-size: 16px;
+  z-index: 2; /* Pastikan ikon di atas background input */
+  pointer-events: none; /* Agar ikon bisa ditembus klik (klik kena inputnya) */
+  transition: 0.3s;
+}
+
+/* REVISI: Update Input & Select agar teks tidak menabrak ikon */
+input,
+select {
+  padding-left: 45px; /* Memberi ruang di kiri untuk ikon */
+}
+
+/* Opsional: Ubah warna ikon saat input difokuskan */
+input:focus + .input-icon,
+input:focus ~ .input-icon,
+select:focus ~ .input-icon {
+  color: #ff6600; /* Ikon jadi orange saat diketik */
+}
+
+/* REVISI: Menghilangkan panah atas/bawah pada Input Number */
+
+/* Untuk Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Untuk Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Pembungkus Tombol */
+.mac-buttons {
+  display: flex;
+  gap: 8px; /* Jarak antar bulatan */
+}
+
+/* Bentuk Bulatan Dasar */
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%; /* Membuat jadi bulat */
+}
+
+/* Warna-warna MacOS */
+.yellow {
+  background-color: #ffbd2e;
+} /* Minimize */
+.green {
+  background-color: #28c940;
+} /* Expand */
+.red {
+  background-color: #ff5f57;
+} /* Close */
+
+.alert {
+  font-size: 14px;
+}

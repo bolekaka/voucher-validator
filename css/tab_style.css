@@ -1,0 +1,61 @@
+/*
+  Tujuan file    : Styling Responsif Tablet
+  Bagian utama   : Override background & width
+  Author         : Gemini AI
+  Last modified  : 2023-10-27
+*/
+
+/* JANGAN DIUBAH - Media query handled di link HTML, ini spesifik style */
+
+body {
+  /* Background Tablet [cite: 97] */
+  background-image: url("../img/tab.jpg");
+}
+
+.card {
+  width: 300px; /* Lebar card menyesuaikan tablet */
+}
+
+.card-header {
+  padding: 13px;
+}
+
+.card-header h2 {
+  font-size: 0.8rem;
+}
+
+.card-body {
+  padding: 13px;
+}
+
+input,
+select {
+  padding: 13px;
+  font-size: 12px;
+}
+
+button {
+  padding: 13px;
+  font-size: 13px;
+}
+
+#responseMessage {
+  font-size: 12px;
+}
+
+.form-group {
+  margin-bottom: 7px;
+}
+
+.input-icon {
+  font-size: 14px;
+}
+
+input,
+select {
+  padding-left: 40px;
+}
+
+.alert {
+  font-size: 12px;
+}
