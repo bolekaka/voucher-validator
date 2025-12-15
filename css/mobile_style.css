@@ -14,7 +14,7 @@ body {
 
 .card {
   width: 250px;
-  margin-top: 150px;
+  margin-top: 175px;
 }
 
 .card-header {
@@ -61,4 +61,5 @@ select {
 .alert {
   font-size: 10px;
 }
+
 
