@@ -59,3 +59,12 @@ select {
 .alert {
   font-size: 12px;
 }
+
+.mac-buttons {
+  gap: 6px; /* Jarak antar bulatan */
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+}
